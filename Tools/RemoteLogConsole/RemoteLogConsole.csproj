@@ -57,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logger\Logger.csproj">
+    <ProjectReference Include="..\..\Src\Logger\Logger.csproj">
       <Project>{776eee6c-03c2-483b-8480-d2aed77d492d}</Project>
       <Name>Logger</Name>
     </ProjectReference>
