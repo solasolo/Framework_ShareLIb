@@ -113,17 +113,13 @@
   <ItemGroup>
     <Compile Include="DataGridViewDisableButtonColumn.cs" />
     <Compile Include="ExcelOperator.cs" />
-    <Compile Include="FormalPrint.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FormalPrint.cs" />
     <Compile Include="FormConfig.cs" />
     <Compile Include="GridViewPrinter.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="HMILogger.cs" />
-    <Compile Include="MappedComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MappedComboBox.cs" />
     <Compile Include="ObjentMappedPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
