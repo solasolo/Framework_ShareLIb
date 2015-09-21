@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Rule Name="PLAN_AABBCCDD">
+    <Time>
+      <Item Begin="8:30" End="16:30" Text="早班">A</Item>
+      <Item Begin="16:30" End="0:30" Text="中班">B</Item>
+      <Item Begin="0:30" End="8:30" Text="夜班">C</Item>
+    </Time>
+    <Plan>
+      <Item>ABCD</Item>
+      <Item>ABCD</Item>
+      <Item>BCDA</Item>
+      <Item>BCDA</Item>
+      <Item>CDAB</Item>
+      <Item>CDAB</Item>
+      <Item>DABC</Item>
+      <Item>DABC</Item>
+    </Plan>
+  </Rule>
+  <Rule Name="PLAN_AADDCCDD">
+    <Time>
+      <Item Begin="6:30" End="18:30" Text="白班">A</Item>
+      <Item Begin="18:30" End="6:30" Text="夜班">C</Item>
+    </Time>
+    <Plan>
+      <Item>ACDD</Item>
+      <Item>ACDD</Item>
+      <Item>DDAC</Item>
+      <Item>DDAC</Item>
+      <Item>CADD</Item>
+      <Item>CADD</Item>
+      <Item>DDCA</Item>
+      <Item>DDCA</Item>
+    </Plan>
+  </Rule>
+</Root>

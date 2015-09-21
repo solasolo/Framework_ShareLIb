@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Form Printer="Send To OneNote 2010" Width="100" Height ="80" OffsetX="" OffsetY="">
+  <Item X="" Y="" Field="T1" Size="10" Font=""/>
+  <Item X="10" Y="10" Field="T2" Size="20" Font=""/>
+  <Item X="20" Y="40" Field="T3" Size="8" Font="Free 3 of 9"/>
+</Form>

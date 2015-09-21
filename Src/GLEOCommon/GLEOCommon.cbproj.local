@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\VoiceCenter\Lib\GLEOCommon\code\Config.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cbproj,F:\Works\VoiceCenter\GLEOCommon\GLEOCommon.cbproj=F:\My Documents\RAD Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\std_unicode.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLException.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.h,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLMultiLanguage.h=F:\Works\System\VoiceCenter\Lib\GLEOCommon\Unit1.h</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLMultiLanguage.cpp=F:\Works\System\VoiceCenter\Lib\GLEOCommon\Unit1.cpp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLMultiLanguage.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.h,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLConfig.h=F:\Works\System\VoiceCenter\Lib\GLEOCommon\Unit1.h</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\VoiceCenter\Lib\GLEOCommon\code\MultiLanguage.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.h,F:\Works\VoiceCenter\Lib\GLEOCommon\include\std_Unicode.h=F:\Works\VoiceCenter\Lib\GLEOCommon\File2.h</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.h,F:\Works\System\VoiceCenter\Lib\GLEOCommon\include\XMLException.h=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\std_unicode.cpp=F:\Works\System\VoiceCenter\Lib\GLEOCommon\File1.cpp</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLConfig.cpp=</Transaction>
+    <Transaction>1899/12/30 00:00:00.000.cpp,F:\Works\System\VoiceCenter\Lib\GLEOCommon\code\XMLConfig.cpp=F:\Works\System\VoiceCenter\Lib\GLEOCommon\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

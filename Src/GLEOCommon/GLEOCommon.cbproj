@@ -1,0 +1,363 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{fe30ba46-8332-4270-968e-3d4722e2099e}</ProjectGuid>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <ProjectVersion>14.6</ProjectVersion>
+        <FrameworkType>None</FrameworkType>
+        <Base>True</Base>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+        <AppType>Library</AppType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win64)'!=''">
+        <Cfg_1_Win64>true</Cfg_1_Win64>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Build>253</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.253;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
+        <VerInfo_Locale>2052</VerInfo_Locale>
+        <LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
+        <OutputExt>dll</OutputExt>
+        <BCC_OptimizeForSpeed>true</BCC_OptimizeForSpeed>
+        <FinalOutputDir>..\..\bin</FinalOutputDir>
+        <PackageImports>vcl.bpi;rtl.bpi;bcbie.bpi;vclx.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;dbrtl.bpi;vcldb.bpi;vcldbx.bpi;bdertl.bpi;dsnap.bpi;dsnapcon.bpi;teeUI.bpi;teedb.bpi;tee.bpi;adortl.bpi;vclib.bpi;ibxpress.bpi;dbxcds.bpi;dbexpress.bpi;DbxCommonDriver.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;IntrawebDB_90_100.bpi;Intraweb_90_100.bpi;VclSmp.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;$(PackageImports)</PackageImports>
+        <ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
+        <DynamicRTL>true</DynamicRTL>
+        <ProjectType>CppDynamicLibrary</ProjectType>
+        <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
+        <IntermediateOutputDir>..\..\Obj\</IntermediateOutputDir>
+        <BCC_wpar>false</BCC_wpar>
+        <IncludePath>code\;include\;$(BDS)\include;$(BDS)\include\vcl;include;..\Win32Common\include;code;$(IncludePath)</IncludePath>
+        <AllPackageLibs>rtl.lib;vcl.lib</AllPackageLibs>
+        <ILINK_LibraryPath>include\;code\;$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <Multithreaded>true</Multithreaded>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <Defines>_UNICODE;$(Defines)</Defines>
+        <Icon_MainIcon>GLEOCommon_Icon.ico</Icon_MainIcon>
+        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Defines>_UNICODE;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_Optimize>false</DCC_Optimize>
+        <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <ILINK_FullDebugInfo>true</ILINK_FullDebugInfo>
+        <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
+        <ILINK_DisableIncrementalLinking>true</ILINK_DisableIncrementalLinking>
+        <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
+        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+        <BCC_DebugLineNumbers>true</BCC_DebugLineNumbers>
+        <TASM_DisplaySourceLines>true</TASM_DisplaySourceLines>
+        <BCC_StackFrames>true</BCC_StackFrames>
+        <ILINK_LibraryPath>$(BDS)\lib\debug;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
+        <TASM_Debugging>Full</TASM_Debugging>
+        <BCC_SourceDebuggingOn>true</BCC_SourceDebuggingOn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Build>0</VerInfo_Build>
+        <Manifest_File>None</Manifest_File>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Defines>_DEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
+        <Defines>_DEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <ILINK_LibraryPath>$(BDS)\lib\release;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <TASM_Debugging>None</TASM_Debugging>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Defines>NDEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <Defines>NDEBUG;$(Defines)</Defines>
+    </PropertyGroup>
+    <ItemGroup>
+        <CppCompile Include="code\BaseException.cpp">
+            <BuildOrder>10</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\CommonFuncs.cpp">
+            <BuildOrder>11</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\Config.cpp">
+            <BuildOrder>12</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\EventLogger.cpp">
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\FileOper.cpp">
+            <BuildOrder>14</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\MultiLanguage.cpp">
+            <BuildOrder>15</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\RegConfig.cpp">
+            <BuildOrder>16</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\std_unicode.cpp">
+            <BuildOrder>17</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\Synchronization.cpp">
+            <BuildOrder>18</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\ThreadWrap.cpp">
+            <BuildOrder>19</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\WinEventLogger.cpp">
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\WinException.cpp">
+            <BuildOrder>21</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\WinFuncs.cpp">
+            <BuildOrder>22</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="code\WinService.cpp">
+            <BuildOrder>23</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="GLEOCommon.cpp">
+            <BuildOrder>30</BuildOrder>
+        </CppCompile>
+        <ResFiles Include="GLEOCommon.res">
+            <BuildOrder>12</BuildOrder>
+        </ResFiles>
+        <None Include="include\BaseException.h">
+            <BuildOrder>17</BuildOrder>
+        </None>
+        <None Include="include\CommonFuncs.h">
+            <BuildOrder>18</BuildOrder>
+        </None>
+        <None Include="include\Config.h">
+            <BuildOrder>19</BuildOrder>
+        </None>
+        <None Include="include\EventLogger.h">
+            <BuildOrder>20</BuildOrder>
+        </None>
+        <None Include="include\FileOper.h">
+            <BuildOrder>21</BuildOrder>
+        </None>
+        <None Include="include\MultiLanguage.h">
+            <BuildOrder>22</BuildOrder>
+        </None>
+        <None Include="include\RegConfig.h">
+            <BuildOrder>23</BuildOrder>
+        </None>
+        <None Include="include\SmartPointer.h">
+            <BuildOrder>24</BuildOrder>
+        </None>
+        <None Include="include\std_unicode.h">
+            <BuildOrder>25</BuildOrder>
+        </None>
+        <None Include="include\Synchronization.h">
+            <BuildOrder>26</BuildOrder>
+        </None>
+        <None Include="include\ThreadWrap.h">
+            <BuildOrder>27</BuildOrder>
+        </None>
+        <None Include="include\WinEventLogger.h">
+            <BuildOrder>28</BuildOrder>
+        </None>
+        <None Include="include\WinException.h">
+            <BuildOrder>29</BuildOrder>
+        </None>
+        <None Include="include\WinFuncs.h">
+            <BuildOrder>30</BuildOrder>
+        </None>
+        <None Include="include\WinService.h">
+            <BuildOrder>31</BuildOrder>
+        </None>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')" Project="$(BDS)\Bin\CodeGear.Cpp.Targets"/>
+    <ProjectExtensions>
+        <Borland.Personality>CPlusPlusBuilder.Personality.12</Borland.Personality>
+        <Borland.ProjectType>CppDynamicLibrary</Borland.ProjectType>
+        <BorlandProject>
+            <CPlusPlusBuilder.Personality>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">True</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">253</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">2052</VersionInfo>
+                    <VersionInfo Name="CodePage">936</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName"/>
+                    <VersionInfoKeys Name="FileDescription"/>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.253</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments"/>
+                </VersionInfoKeys>
+                <Debugging>
+                    <Debugging Name="DebugSourceDirs"/>
+                </Debugging>
+                <Parameters>
+                    <Parameters Name="RunParams"/>
+                    <Parameters Name="Launcher"/>
+                    <Parameters Name="UseLauncher">False</Parameters>
+                    <Parameters Name="DebugCWD"/>
+                    <Parameters Name="HostApplication"/>
+                    <Parameters Name="RemoteHost"/>
+                    <Parameters Name="RemotePath"/>
+                    <Parameters Name="RemoteParams"/>
+                    <Parameters Name="RemoteLauncher"/>
+                    <Parameters Name="UseRemoteLauncher">False</Parameters>
+                    <Parameters Name="RemoteCWD"/>
+                    <Parameters Name="RemoteDebug">False</Parameters>
+                    <Parameters Name="Debug Symbols Search Path"/>
+                    <Parameters Name="LoadAllSymbols">True</Parameters>
+                    <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+                </Parameters>
+                <Linker>
+                    <Linker Name="LibPrefix"/>
+                    <Linker Name="LibSuffix"/>
+                    <Linker Name="LibVersion"/>
+                </Linker>
+                <ProjectProperties>
+                    <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
+                    <ProjectProperties Name="ManagePaths">True</ProjectProperties>
+                    <ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+                </ProjectProperties>
+                <HistoryLists_hlIncludePath>
+                    <HistoryLists_hlIncludePath Name="Count">4</HistoryLists_hlIncludePath>
+                    <HistoryLists_hlIncludePath Name="Item0">$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;include;..\Win32Common\include;code</HistoryLists_hlIncludePath>
+                    <HistoryLists_hlIncludePath Name="Item1">$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;include;..\Win32Common\include</HistoryLists_hlIncludePath>
+                    <HistoryLists_hlIncludePath Name="Item2">$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;include;code</HistoryLists_hlIncludePath>
+                    <HistoryLists_hlIncludePath Name="Item3">$(BDS)\include;$(BDS)\include\dinkumware;$(BDS)\include\vcl;include</HistoryLists_hlIncludePath>
+                </HistoryLists_hlIncludePath>
+                <HistoryLists_hlFinalOutputDir>
+                    <HistoryLists_hlFinalOutputDir Name="Count">2</HistoryLists_hlFinalOutputDir>
+                    <HistoryLists_hlFinalOutputDir Name="Item0">..\..\Bin\</HistoryLists_hlFinalOutputDir>
+                    <HistoryLists_hlFinalOutputDir Name="Item1">..\..\bin</HistoryLists_hlFinalOutputDir>
+                </HistoryLists_hlFinalOutputDir>
+                <HistoryLists_hlILINK_LibraryPath>
+                    <HistoryLists_hlILINK_LibraryPath Name="Count">1</HistoryLists_hlILINK_LibraryPath>
+                    <HistoryLists_hlILINK_LibraryPath Name="Item0">$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk</HistoryLists_hlILINK_LibraryPath>
+                    <HistoryLists_hlILINK_LibraryPath Name="Item1">$(BDS)\lib;$(BDS)\lib\obj;$(BDS)\lib\psdk</HistoryLists_hlILINK_LibraryPath>
+                </HistoryLists_hlILINK_LibraryPath>
+                <HistoryLists_hlDefines>
+                    <HistoryLists_hlDefines Name="Count">1</HistoryLists_hlDefines>
+                    <HistoryLists_hlDefines Name="Item0">NO_STRICT;_UNICODE</HistoryLists_hlDefines>
+                    <HistoryLists_hlDefines Name="Item1">NO_STRICT;_UNCODE</HistoryLists_hlDefines>
+                    <HistoryLists_hlDefines Name="Item2">_DEBUG;NO_STRICT</HistoryLists_hlDefines>
+                </HistoryLists_hlDefines>
+                <HistoryLists_hlIntermediateOutputDir>
+                    <HistoryLists_hlIntermediateOutputDir Name="Count">1</HistoryLists_hlIntermediateOutputDir>
+                    <HistoryLists_hlIntermediateOutputDir Name="Item0">..\..\Obj\</HistoryLists_hlIntermediateOutputDir>
+                    <HistoryLists_hlIntermediateOutputDir Name="Item1">..\..\obj</HistoryLists_hlIntermediateOutputDir>
+                </HistoryLists_hlIntermediateOutputDir>
+                <HistoryLists_hlTLIB_PageSize>
+                    <HistoryLists_hlTLIB_PageSize Name="Count">1</HistoryLists_hlTLIB_PageSize>
+                    <HistoryLists_hlTLIB_PageSize Name="Item0">16</HistoryLists_hlTLIB_PageSize>
+                </HistoryLists_hlTLIB_PageSize>
+                <HistoryLists_hlTASM_HashTableCapacity>
+                    <HistoryLists_hlTASM_HashTableCapacity Name="Count">1</HistoryLists_hlTASM_HashTableCapacity>
+                    <HistoryLists_hlTASM_HashTableCapacity Name="Item0">8192</HistoryLists_hlTASM_HashTableCapacity>
+                </HistoryLists_hlTASM_HashTableCapacity>
+                <HistoryLists_hlTASM_MaxSymbolLength>
+                    <HistoryLists_hlTASM_MaxSymbolLength Name="Count">1</HistoryLists_hlTASM_MaxSymbolLength>
+                    <HistoryLists_hlTASM_MaxSymbolLength Name="Item0">12</HistoryLists_hlTASM_MaxSymbolLength>
+                </HistoryLists_hlTASM_MaxSymbolLength>
+                <HistoryLists_hlTASM_Passes>
+                    <HistoryLists_hlTASM_Passes Name="Count">1</HistoryLists_hlTASM_Passes>
+                    <HistoryLists_hlTASM_Passes Name="Item0">1</HistoryLists_hlTASM_Passes>
+                </HistoryLists_hlTASM_Passes>
+                <HistoryLists_hlTASM_VersionId>
+                    <HistoryLists_hlTASM_VersionId Name="Count">1</HistoryLists_hlTASM_VersionId>
+                    <HistoryLists_hlTASM_VersionId Name="Item0">0</HistoryLists_hlTASM_VersionId>
+                </HistoryLists_hlTASM_VersionId>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k180.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp180.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k180.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp180.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+            </CPlusPlusBuilder.Personality>
+            <Platforms>
+                <Platform value="OSX32">False</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+</Project>

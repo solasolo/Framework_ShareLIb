@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="jsdoctor.css"/>
+        <style type="text/css">
+            .red {
+                color: red;
+            }
+            
+            .bg {
+                background-color: gray;
+            }
+        </style>
+        <script src="..\gleo\sys\Core.js" type="text/javascript">
+        </script>
+        <script src="..\gleo\com\JScriptDebuger.js" type="text/javascript">
+        </script>
+        <script>
+            function testajax(){
+                var url = "http://localhost/ajax.txt";
+//                data = ajax.getJSON(url, {
+//                    Execute: function(data, status){
+//                        alert("success:" + data + "\nstatus:" + status);
+//                    },
+//                    Error: function(data, status){
+//                        alert("fail:" + data + "\nstatus:" + status);
+//                    }
+//                });
+				data = ajax.getJSON(url);
+				alert(data);
+            }
+            
+            function testcss(aa){
+                var div = $("d_css");
+                
+//                css.style(div, "color", "green");
+//                css.style(div, "font-size", "18");
+				css.style(div, { "color": "green", "background": "gray", "width":"500px" });
+                JsDoctor.log(css.style(div, "color"));
+                JsDoctor.log(css.style(div, "fontSize"));
+                JsDoctor.log(aa == undefined);
+            }
+            
+            function testdom(aa){
+                var div = $("d_css");
+                //				var p = document.createElement("<p>");
+                //				p.innerHTML = "<B>this is a paragraph</B>";
+                //				MyJquery.dom.before(div, p);
+                dom.toggleClass(div, "bg red");
+            }
+            
+            function testevent(msg){
+                alert("textevent\n" + msg);
+            }
+            
+            function eventclick(){
+                var e = eventer.getEvent();
+                if (e) {
+                    var res = document.getElementById("result");
+                    var s = "";
+                    var i = 0;
+                    for (var p in e) {
+                        s += ++i + ". " + p.toString() + ":" + e[p] + "</br>";
+                    }
+                    res.innerHTML = s;
+                }
+            }
+        </script>
+    </head>
+    <body>
+        hello!
+        <div id="adiv" style="color:blue;" onclick="eventclick(event)">
+            click me
+        </div>
+        <div id="a" style="border:1px solid orange;">
+            <p>
+                testCore
+            </p>
+            <p id="createevent">
+                test create event
+            </p>
+            <input onkeypress="testCore2('aa');"/>
+            <br/>
+            <input type="button" onclick="testajax()" value="test Ajax">
+            <br/>
+            <input type="button" onclick="testcss()" value="test css">
+            <br/>
+            <input type="button" onclick="testdom()" value="test dom">
+        </div>
+        <div id="d_css" class="red bg">
+            test jquery css
+        </div>
+        <div id="result" style="font-size:small; font-family:Verdana">
+        </div>
+    </body>
+    <script type="text/javascript">
+        var a = $("a");
+        var obj = $("createevent");
+        eventer.add(obj, 'click', eventer.create(testevent, "this is a event demo"));
+    </script>
+</html>

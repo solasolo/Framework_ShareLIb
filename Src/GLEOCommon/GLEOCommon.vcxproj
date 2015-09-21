@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}</ProjectGuid>
+    <RootNamespace>GLEO</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\bin\</OutDir>
+    <IntDir>..\..\obj\$(ProjectName)\debug\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\release\</OutDir>
+    <IntDir>..\..\obj\$(ProjectName)\release\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>include;..\SmartComponents\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="code\BaseException.cpp" />
+    <ClCompile Include="code\CommonFuncs.cpp" />
+    <ClCompile Include="code\Config.cpp" />
+    <ClCompile Include="code\ConsoleEventLogger.cpp" />
+    <ClCompile Include="code\EventLogger.cpp" />
+    <ClCompile Include="code\FileOper.cpp" />
+    <ClCompile Include="code\MultiLanguage.cpp" />
+    <ClCompile Include="code\Performance.cpp" />
+    <ClCompile Include="code\RegConfig.cpp" />
+    <ClCompile Include="code\Registry.cpp" />
+    <ClCompile Include="code\ServiceApplication.cpp" />
+    <ClCompile Include="code\SimpleTask.cpp" />
+    <ClCompile Include="code\std_unicode.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="code\Synchronization.cpp" />
+    <ClCompile Include="code\ThreadLogger.cpp" />
+    <ClCompile Include="code\ThreadWrap.cpp" />
+    <ClCompile Include="code\Variant.cpp" />
+    <ClCompile Include="code\WinEventLogger.cpp" />
+    <ClCompile Include="code\WinException.cpp" />
+    <ClCompile Include="code\WinFuncs.cpp" />
+    <ClCompile Include="code\WinService.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\BaseException.h" />
+    <ClInclude Include="include\CommonFuncs.h" />
+    <ClInclude Include="include\Config.h" />
+    <ClInclude Include="include\ConsoleEventLogger.h" />
+    <ClInclude Include="include\EventLogger.h" />
+    <ClInclude Include="include\FileOper.h" />
+    <ClInclude Include="include\MultiLanguage.h" />
+    <ClInclude Include="include\nonvcl.h" />
+    <ClInclude Include="include\Performance.h" />
+    <ClInclude Include="include\RegConfig.h" />
+    <ClInclude Include="include\Registry.h" />
+    <ClInclude Include="include\ServiceApplication.h" />
+    <ClInclude Include="include\SimpleTask.h" />
+    <ClInclude Include="include\SmartPointer.h" />
+    <ClInclude Include="include\std_unicode.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\Synchronization.h" />
+    <ClInclude Include="include\ThreadLogger.h" />
+    <ClInclude Include="include\ThreadWrap.h" />
+    <ClInclude Include="include\Variant.h" />
+    <ClInclude Include="include\WinEventLogger.h" />
+    <ClInclude Include="include\WinException.h" />
+    <ClInclude Include="include\WinFuncs.h" />
+    <ClInclude Include="include\WinService.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

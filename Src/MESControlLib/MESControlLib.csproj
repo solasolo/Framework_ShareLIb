@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29E9A466-558D-41A6-9DA3-991EC0914876}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GLEO.MES.UI</RootNamespace>
+    <AssemblyName>MESControlLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataProviders">
+      <HintPath>..\..\Dlls\DataProviders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="RdlEngine">
+      <HintPath>..\..\Dlls\RdlEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="RdlViewer">
+      <HintPath>..\..\Dlls\RdlViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewCloumnFx.cs" />
+    <Compile Include="DataGridViewCloumnLink.cs" />
+    <Compile Include="DataGridViewCloumnButton.cs" />
+    <Compile Include="DataGridViewCloumnCheckBox.cs" />
+    <Compile Include="DataGridViewCloumnTextBox.cs" />
+    <Compile Include="FlashLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThreadLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ThreadTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComboBoxFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LabelFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanelFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextBoxFx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelperToolkit\HelperToolkit.csproj">
+      <Project>{f3ad7837-a419-41d4-a36a-2fbfed266565}</Project>
+      <Name>HelperToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HMILib\HMILib.csproj">
+      <Project>{ab62a61c-b270-4aa2-a068-cd571f0715c6}</Project>
+      <Name>HMILib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIExtension\UIExtension.csproj">
+      <Project>{72e18481-9a7c-4ea0-8414-b8a5953686d7}</Project>
+      <Name>UIExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB7365D5-1F90-463D-BB20-06B39B36F377}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HMI</RootNamespace>
+    <AssemblyName>HMIFrame</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlertGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AlertGridView.Designer.cs">
+      <DependentUpon>AlertGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmAccessControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmAccessControl.Designer.cs">
+      <DependentUpon>FrmAccessControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAlertHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmAlertHistory.Designer.cs">
+      <DependentUpon>FrmAlertHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChangeCrew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChangeCrew.Designer.cs">
+      <DependentUpon>FrmChangeCrew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmChangePwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmChangePwd.Designer.cs">
+      <DependentUpon>FrmChangePwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCommunication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCommunication.Designer.cs">
+      <DependentUpon>FrmCommunication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMultilang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmMultilang.Designer.cs">
+      <DependentUpon>FrmMultilang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmOperationHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmOperationHistory.Designer.cs">
+      <DependentUpon>FrmOperationHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmUser.Designer.cs">
+      <DependentUpon>FrmUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUserManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FrmUserManager.Designer.cs">
+      <DependentUpon>FrmUserManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFrame.designer.cs">
+      <DependentUpon>MainFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaseControl.resx">
+      <DependentUpon>BaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAccessControl.resx">
+      <DependentUpon>FrmAccessControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAlertHistory.resx">
+      <DependentUpon>FrmAlertHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChangeCrew.resx">
+      <DependentUpon>FrmChangeCrew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmChangePwd.resx">
+      <DependentUpon>FrmChangePwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMultilang.resx">
+      <DependentUpon>FrmMultilang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOperationHistory.resx">
+      <DependentUpon>FrmOperationHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUser.resx">
+      <DependentUpon>FrmUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmUserManager.resx">
+      <DependentUpon>FrmUserManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainFrame.resx">
+      <DependentUpon>MainFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBUtility\DBUtility.csproj">
+      <Project>{72d644ab-c010-405b-b3e2-05940a965682}</Project>
+      <Name>DBUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelperToolkit\HelperToolkit.csproj">
+      <Project>{f3ad7837-a419-41d4-a36a-2fbfed266565}</Project>
+      <Name>HelperToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HMILib\HMILib.csproj">
+      <Project>{ab62a61c-b270-4aa2-a068-cd571f0715c6}</Project>
+      <Name>HMILib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MESControlLib\MESControlLib.csproj">
+      <Project>{29e9a466-558d-41a6-9da3-991ec0914876}</Project>
+      <Name>MESControlLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SocketNetwork\SocketNetwork.csproj">
+      <Project>{8ca161a7-4509-4af0-a463-167546172757}</Project>
+      <Name>SocketNetwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIExtension\UIExtension.csproj">
+      <Project>{72e18481-9a7c-4ea0-8414-b8a5953686d7}</Project>
+      <Name>UIExtension</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

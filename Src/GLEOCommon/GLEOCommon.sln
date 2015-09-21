@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLEOCommon", "GLEOCommon.vcproj", "{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 2
+		SccProjectName0 = Ungerer\\Src\\GLEOCommon
+		SccLocalPath0 = .
+		SccProvider0 = MSSCCI:StarTeam
+		CanCheckoutShared = true
+		SolutionUniqueID = {4B0323F2-33C4-47E6-BDDC-5A0076DD53E6}
+		SccProjectUniqueName1 = GLEOCommon.vcproj
+		SccLocalPath1 = .
+		CanCheckoutShared = true
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Debug.ActiveCfg = Debug|Win32
+		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Debug.Build.0 = Debug|Win32
+		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release.ActiveCfg = Release|Win32
+		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

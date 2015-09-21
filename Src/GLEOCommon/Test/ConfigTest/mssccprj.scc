@@ -1,0 +1,5 @@
+SCC = This is a Source Code Control file
+
+[ConfigTest.vcproj]
+SCC_Aux_Path = "\\172.16.17.55\un"
+SCC_Project_Name = "$/Lib/GLEOCommon/Test/ConfigTest", IYAAAAAA
