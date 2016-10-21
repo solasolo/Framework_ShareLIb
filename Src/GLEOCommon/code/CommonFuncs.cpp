@@ -102,68 +102,106 @@ namespace GLEO
 {
 	string ToNarrowString(const wstring& str)
 	{
-		string buf ;
+		string buf = "";
 		int len;
 		const wchar_t* pStr;
 
 		pStr = str.c_str();
 		len = (int) str.length();
 
-		// figure out how many narrow characters we are going to get 
-		int nChars = WideCharToMultiByte( CP_ACP , 0 , pStr , len , NULL , 0 , NULL , NULL) ; 
-		if ( len == -1 ) --nChars ; 
-		if ( nChars == 0 ) return "" ;
+		if (len > 0)
+		{
+			// figure out how many narrow characters we are going to get 
+			int nChars = WideCharToMultiByte(CP_ACP, 0, pStr, len, NULL, 0, NULL, NULL);
 
-		buf.resize( nChars ) ;
-		WideCharToMultiByte(CP_ACP , 0 , pStr , len , const_cast<char*>(buf.c_str()) , nChars , NULL , NULL) ; 
+			if (nChars > 0)
+			{
+				buf.resize(nChars);
+				WideCharToMultiByte(CP_ACP, 0, pStr, len, const_cast<char*>(buf.c_str()), nChars, NULL, NULL);
+			}
+		}
 
 		return buf ; 
 	}
 
 	wstring ToWideString(const string& str)
 	{
-		wstring buf ;
+		wstring buf = L"";
 		int len;
 		const char* pStr;
 
 		pStr = str.c_str();
 		len = (int) str.length();
 
-		// figure out how many narrow characters we are going to get 
-		int nChars = MultiByteToWideChar( CP_ACP , 0 , pStr , len , NULL , 0) ; 
-		if ( len == -1 ) --nChars ; 
-		if ( nChars == 0 ) return L"" ;
+		if (len > 0)
+		{
+			// figure out how many narrow characters we are going to get 
+			int nChars = MultiByteToWideChar(CP_ACP, 0, pStr, len, NULL, 0);
 
-		buf.resize( nChars ) ;
-		MultiByteToWideChar(CP_ACP , 0 , pStr , len , const_cast<wchar_t*>(buf.c_str()) , nChars) ; 
+			if (nChars > 0)
+			{
+				buf.resize(nChars);
+				MultiByteToWideChar(CP_ACP, 0, pStr, len, const_cast<wchar_t*>(buf.c_str()), nChars);
+			}
+		}
 
 		return buf ; 
 	}
 
-	TString ToString(string& str)
+	string ToUTF8String(const wstring& str)
 	{
-#ifdef UNICODE 
-		return ~str;
-#else
-		return str;
-#endif
+		string buf = "";
+		int len;
+		const wchar_t* pStr;
+
+		len = (int)str.length();
+		pStr = str.c_str();
+
+		if (len > 0)
+		{
+			// figure out how many narrow characters we are going to get 
+			int nChars = WideCharToMultiByte(CP_UTF8, 0, pStr, len, NULL, 0, NULL, NULL);
+
+			if (nChars > 0)
+			{
+				buf.resize(nChars);
+				WideCharToMultiByte(CP_UTF8, 0, pStr, len, const_cast<char*>(buf.c_str()), nChars, NULL, NULL);
+			}
+		}
+
+		return buf;
 	}
 
-	TString ToString(wstring& str)
+	wstring FromUTF8String(const string& str)
 	{
-#ifdef UNICODE 
-		return str;
-#else
-		return ~str;
-#endif
+		wstring buf = L"";
+		int len;
+		const char* pStr;
+
+		len = (int)str.length();
+		pStr = str.c_str();
+
+		if (len > 0)
+		{
+			// figure out how many narrow characters we are going to get 
+			int nChars = MultiByteToWideChar(CP_UTF8, 0, pStr, len, NULL, 0);
+
+			if (nChars > 0)
+			{
+				buf.resize(nChars);
+				MultiByteToWideChar(CP_UTF8, 0, pStr, len, const_cast<wchar_t*>(buf.c_str()), nChars);
+			}
+		}
+
+		return buf;
 	}
 
-	TString ExtractFilePath(TString path)
+	wstring ExtractFilePath(wstring path)
 	{
-		TString Result;	
+		wstring Result;
 
 		size_t p = path.find_last_of( _T('\\'));
-		if(p == TString::npos)
+		if(p == wstring::npos)
 		{
 			Result = _T(".");
 		}

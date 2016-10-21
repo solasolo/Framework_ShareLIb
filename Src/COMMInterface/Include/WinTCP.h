@@ -73,6 +73,8 @@ namespace GLEO
 		TCPConnection(SOCKET socket);
 		~TCPConnection();
 
+		static bool Debug;
+
 		int GetLocalPort();
 		string GetLocalIP();
 		bool IsOnline();

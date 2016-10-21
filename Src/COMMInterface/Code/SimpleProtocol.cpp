@@ -13,25 +13,35 @@ bool SimpleFrameCodec::Decode(StreamBuffer& stream, short& cmd, string& DataBloc
 		stream.PickData(1);
 	}
 
-	if(BufLen > 8)
+	if(BufLen >= 6)
 	{
 		if(stream.ReadByte(0) == STX)	// Meet Head
 		{
-			int TelLen = stream.ReadInt(1);
-			if(BufLen >= TelLen + 2)
+ 			int TelLen = stream.ReadInt(1);
+			if(TelLen >= 4 && BufLen >= TelLen + 2)
 			{
-				//cmd = Buffer->ReadByte(3); // Read Command Byte
-				cmd = (short)(stream.ReadInt(3)); // Read Command Data
-				
-				//Buffer->PickData(4);		// 删除cmd及之前的字节
-				stream.PickData(5);		// 删除cmd及之前的字节1+2+2
-				//Buffer->PickData(2);		// string data length
-				//Buffer->PickData(data, TelLen - 3);
-				stream.PickData(DataBlock, TelLen - 4);
+				if (stream.ReadByte(TelLen + 1) == ETX)
+				{
+					cmd = (short)(stream.ReadInt(3)); // Read Command
 
-				if(stream.ReadByte(0) == ETX) Result = true;
+					stream.PickData(5);		// 删除cmd及之前的字节 1 + 2 + 2
 
-				stream.PickData(1);
+					if(TelLen > 4)
+					{ 
+						stream.PickData(DataBlock, TelLen - 4); // Read Data
+					}
+					else
+					{
+						DataBlock = "";
+					}
+
+					stream.PickData(1); // Remove ETX
+					Result = true;
+				}
+				else
+				{
+					stream.PickData(1); // Remove STX
+				}
 			}
 		}
 	}

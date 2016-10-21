@@ -14,7 +14,8 @@ namespace GLEO.MES.Network
         {
             Data = data;
             pos = 0;
-            size = data.Length;
+
+            size = data == null ? 0 : data.Length;
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace GLEO.MES.Network
         
         public int GetInt()
         {
-            this.Check(2);
+            this.Check(4);
 
             int ret;
 

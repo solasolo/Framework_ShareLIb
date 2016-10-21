@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <comutil.h>
+
 #include "CommonFuncs.h"
 #include "BaseException.h"
 #include "CommonDatadef.h"
@@ -336,6 +337,8 @@ void CommonData2::setData(CommonData2& Data)
 void CommonData2::setData(string name, variant_t& value)
 {
 	char* str = NULL;
+	wchar_t* wstr = NULL;
+
 	VARTYPE type = value.vt;
 	switch (type)
 	{
@@ -356,14 +359,16 @@ void CommonData2::setData(string name, variant_t& value)
 		setInt(name, value);
 		break;
 
-	case VT_BSTR:
 	case VT_LPSTR:
-		str = _com_util::ConvertBSTRToString((BSTR)value.ulVal);
+		str = (char*)value.ulVal;
 		setString(name, str);
 		break;
 
+	case VT_BSTR:
 	case VT_LPWSTR:
-		setString(name, (_com_util::ConvertBSTRToString((BSTR)value.ulVal)) );
+		wstr = (wchar_t*)value.ulVal;
+		setString(name, ~wstring(wstr));
+		//setString(name, (_com_util::ConvertBSTRToString((BSTR)value.ulVal)) );
 		break;
 
 	case VT_DECIMAL:

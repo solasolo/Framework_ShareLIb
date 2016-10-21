@@ -10,6 +10,7 @@
 
 using namespace std;
 
+const int MESSAGE_LOGGER_BUFFER_SIZE = 8190;
 
 //------------------------------------------------------------------------------------
 XCOMException::XCOMException(char* message) :
@@ -68,7 +69,8 @@ void BaseXCOM::Init()
 	InError = true;
 	AllowRecCallBack = true;
 	AutoACK = false;
-	ReplyHeartBeat = false;
+	HeartBeatACK = false;
+	SwapHearChannel = false;
 	CheckHeartBeat = true;
 	EnableSendQueue = false;
 
@@ -85,7 +87,7 @@ void BaseXCOM::Init()
 
 	ACKOutTime = 10;
 	LiveOutTime = 60;
-	ConnectOutTime = 30;
+	ConnectOutTime = 60;
 
 	this->WatchDogStart = new ThreadStart(WatchDogThread, this, true);
 }
@@ -105,6 +107,11 @@ void BaseXCOM::Reset()
 	InitSocket();
 }
 
+void BaseXCOM::ResetHeartbeat()
+{
+	this->LastLiveRecv = time(NULL);
+}
+
 void BaseXCOM::ClearSocket()
 {
 	if(Server)
@@ -118,47 +125,29 @@ void BaseXCOM::InitSocket()
 	bool ClientReady = false;
 	bool ListenOK = false;
 
-	time_t OutTime = time(NULL) + ConnectOutTime;
-
-	while(OutTime > time(NULL))
+	if(!ListenOK)
 	{
-		if(!ListenOK)
+		if(Server == NULL)
 		{
-			if(Server == NULL)
-			{
-				Server = new TCPServer(ServerIP, ServerPort,true);
-				Server->SetCallBack(this);
-			}
-			ListenOK = true;
+			Server = new TCPServer(ServerIP, ServerPort,true);
+			Server->SetCallBack(this);
 		}
 
-		if(!ClientReady)
+		ListenOK = true;
+	}
+
+	if(!ClientReady)
+	{
+		if(Client == NULL)
 		{
-			if(Client == NULL)
-			{
-				Client = new TCPClient(RemoteIP,RemotePort);
+			Client = new TCPClient(RemoteIP,RemotePort);
 				
-				//Client->setSleepTimer(500);
-				Client->SetCallBack(this);
-				Client->setConnTimer(500);
-			}
-
-			ClientReady = true;
+			//Client->setSleepTimer(500);
+			Client->SetCallBack(this);
+			Client->setConnTimer(500);
 		}
 
-		if(Client->IsOnline() && ListenOK )
-		{
-			LastLiveRecv = time(NULL);
-			LastLiveSend = 0;
-
-			SendNotify(wstring(L"Connect Successfully!"));
-
-			this->InError = false;
-			this->RemoteLive = true;
-			break;
-		}
-
-		Sleep(100);
+		ClientReady = true;
 	}
 }
 
@@ -183,7 +172,7 @@ bool BaseXCOM::InnerSend(string& MessageID, string& telegram)
 			this->LastSendMsgID = MessageID;
 			Client->Send(telegram);
 
-			TeleLogger->Log(etMessage, "SND: [" + MessageID + "] " + telegram);
+			this->MessageLog("==> MSG: [%s] %s", MessageID.c_str(), telegram.c_str());
 			SendNotify(wstring(L"Send ") + ~MessageID);
 
 			if(this->AutoACK)
@@ -214,7 +203,10 @@ bool BaseXCOM::InnerSend(string& MessageID, string& telegram)
 
 void BaseXCOM::DoDataReceive(string& MessageID, string& DataBlock)
 {
-	this->LastLiveRecv = time(NULL);
+	if (!this->SwapHearChannel)
+	{
+		this->ResetHeartbeat();
+	}
 
 	if(this->CallBackHandle != NULL)
 	{
@@ -366,6 +358,28 @@ void BaseXCOM::SendNotify(wstring& msg, EventType type)
 	}
 }
 
+void BaseXCOM::RecordTelegram(string& msg)
+{
+	if (this->TeleLogger)
+	{
+		this->TeleLogger->Log(EventType::etMessage, msg);
+	}
+}
+
+void BaseXCOM::MessageLog(char* fmt, ...)
+{
+	char buf[MESSAGE_LOGGER_BUFFER_SIZE + 1];
+	buf[MESSAGE_LOGGER_BUFFER_SIZE] = '\x0';
+
+	va_list args;
+	va_start(args, fmt);
+
+	_vsnprintf_s(buf, MESSAGE_LOGGER_BUFFER_SIZE, fmt, args);
+
+	string Message = buf;
+	this->RecordTelegram(Message);
+}
+
 bool BaseXCOM::getCommStatus()
 {
 	bool Result = true;
@@ -388,20 +402,25 @@ void BaseXCOM::SendHeartbeat()
 	string Temp;
 	this->Codec->EncodeHeartTelgram(Temp);
 
-	Client->Send(Temp);
-	TeleLogger->Log(etMessage, "LIV: " + Temp);
+	if (this->SwapHearChannel)
+	{
+		Server->SendAll(Temp);
+	}
+	else
+	{
+		Client->Send(Temp);
+	}
+
+	this->MessageLog("==> LIV: %s", Temp.c_str());
 } 
 
 void BaseXCOM::SendHeartbeatACK(TCPConnection& conn)
 {
-	if(this->ReplyHeartBeat) 
-	{
-		string Temp;
+	string Temp;
 
-		this->Codec->EncodeHeartReply(Temp);
-		conn.Send(Temp);
-		TeleLogger->Log(etMessage, "LRP: " + Temp);
-	}
+	this->Codec->EncodeHeartReply(Temp);
+	conn.Send(Temp);
+	this->MessageLog("==> LRP: %s", Temp.c_str());
 }
 
 void BaseXCOM::SendACK(TCPConnection& conn, string& telegram)
@@ -410,7 +429,7 @@ void BaseXCOM::SendACK(TCPConnection& conn, string& telegram)
 	this->Codec->EncodeACK(Temp, telegram);
 
 	conn.Send(Temp);
-	TeleLogger->Log(etMessage, "ACK: " + Temp);
+	this->MessageLog("==> ACK: %s", Temp.c_str());
 }
 
 void BaseXCOM::OnReceived(TCPConnection& conn)
@@ -430,8 +449,22 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 		BaseXCOMCodec::MessageType MsgType = this->Codec->Decode(s, Dir, telegram, MID, DataBlock);
 		if(MsgType == BaseXCOMCodec::MessageType::NO_MESSAGE) break;
 
-		_itoa_s(telegram.size(), tmp, 9, 10);
-		TeleLogger->Log(etMessage, "REV: [" + MID + "](" + tmp + ")" + telegram); //收到的电文
+		string TypeString;
+		switch (MsgType)
+		{
+		case BaseXCOMCodec::MessageType::LIVE_MESSAGE:
+			TypeString = "LIV";
+			break;
+		
+		case BaseXCOMCodec::MessageType::MESSAGE_ACK:
+			TypeString = "ACK";
+			break;
+
+		default:
+			TypeString = "MSG";
+		}
+
+		this->MessageLog("<== %s:[%s](%d)%s", TypeString.c_str(), MID.c_str(), telegram.size(), telegram.c_str()); 
 
 		switch (MsgType)
 		{
@@ -462,12 +495,13 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 		case BaseXCOMCodec::MessageType::LIVE_MESSAGE:
 			//this->SendNotify(wstring(L"Receive a Live Message!"), etDebug);
 
-			this->LastLiveRecv = time(NULL);
+			this->ResetHeartbeat();
 
-			if(this->AutoACK)
+			if(this->HeartBeatACK)
 			{
-				SendACK(conn, MID);
+				SendACK(conn, telegram);
 			}
+
 			break;
 
 		case BaseXCOMCodec::MessageType::MESSAGE_ACK:
@@ -489,8 +523,7 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 			if(!Err.empty())
 			{
 				this->SendNotify(wstring(L"Receive Error:") + Err, etDebug);
-				_itoa_s(telegram.size(), tmp, 9, 10);
-				TeleLogger->Log(etMessage, "ERR: [" + ~Codec->getError() + "][" + MID + "](" + tmp + ")" + telegram); //收到的电文
+				this->MessageLog("<== ERR: [%s][%s](%d) %s", (~Err).c_str(), MID.c_str(), telegram.size(), telegram.c_str()); //收到的电文
 			}
 			break;
 
@@ -503,6 +536,7 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 
 void BaseXCOM::OnConnected(TCPConnection& conn)
 {
+	this->ResetHeartbeat();
 }
 
 void BaseXCOM::NotifyFunc(void* sender, wstring& msg, EventType type)
@@ -525,19 +559,39 @@ DWORD WINAPI BaseXCOM::WatchDogThread(void* param)
 		{
 			while(!me->Quiting && (me->InError || (!me->RemoteLive && me->CheckHeartBeat)) )//重置客户端连接
 			{
-				me->SendNotify(wstring(L"BaseXCOM Reset!"), etMessage);
+				me->SendNotify(wstring(L"BaseXCOM Reset!"), EventType::etWarrining);
 				try
 				{
 					me->Reset();
-					WaitCount = me->LiveOutTime;
+					WaitCount = me->LiveOutTime * 5;
+
+					me->InError = true;
+					time_t OutTime = time(NULL) + me->ConnectOutTime;
+					while (time(NULL) < OutTime)
+					{
+						if (me->Client->IsOnline() && me->Server->GetClientsCount() > 0)
+						{
+							me->LastLiveSend = 0;
+							me->InError = false;
+							me->RemoteLive = true;
+
+							me->ResetHeartbeat();
+
+							me->SendNotify(wstring(L"Connection established!"));
+
+							break;
+						}
+
+						Sleep(100);
+					}
 				}
 				catch(WinSocketException& ex)
 				{
-					me->SendNotify(wstring(L"Error in Reset BaseXCOM:") + ex.GetDescription(), etError);
+					me->SendNotify(wstring(L"Error in Reset BaseXCOM:") + ex.GetDescription(), EventType::etError);
 				}
 				catch(Exception& ex)
 				{
-					me->SendNotify(wstring(L"Error in Reset BaseXCOM:") + ex.GetDescription(), etError);
+					me->SendNotify(wstring(L"Error in Reset BaseXCOM:") + ex.GetDescription(), EventType::etError);
 				}
 
 				srand(time(NULL));
@@ -562,11 +616,12 @@ DWORD WINAPI BaseXCOM::WatchDogThread(void* param)
 				if (Timedifference > 3 * me->LiveOutTime)  
 				{
 					me->RemoteLive = false;
-					me->SendNotify(wstring(L"BaseXCOM Watch Dog Time Out!"));
+					me->SendNotify(wstring(L"BaseXCOM Watch Dog Time Out!"), EventType::etWarrining);
 					me->SendHeartbeat();
 				}
 			}
 
+			// Queued Send
 			LightLocker lock(me->SendQueueLock);
 			lock.WaitingLock();
 
@@ -620,7 +675,6 @@ void BaseXCOM::CreateLogger()
 	TeleLogger = new TextEventLogger(BasePath + L"..\\LOG\\", this->Name + L"-");
 }
 
-
 //------------------------------------------------------------------------------------
 XCOM::XCOM(wstring name, string sip, unsigned int sport, string rip, unsigned int rport)
 	: BaseXCOM(name)
@@ -633,7 +687,7 @@ XCOM::XCOM(wstring name, string sip, unsigned int sport, string rip, unsigned in
 
 void XCOM::setReplyHeartBeat(bool flag)
 {
-	this->ReplyHeartBeat = flag;
+	this->HeartBeatACK = flag;
 }
 
 void XCOM::setCheckHeartBeat(bool flag)

@@ -22,6 +22,7 @@ public:
 	enum MessageType
 	{
 		MESSAGE_ACK,
+		LIVE_ACK,
 		DATA_MESSAGE,
 		DATA_MESSAGE_REPLY,
 		LIVE_MESSAGE,

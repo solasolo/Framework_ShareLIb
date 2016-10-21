@@ -183,7 +183,7 @@ void AlarmSender::RunTask()
 		{
 			if(this->Dba)
 			{
-				this->Dba->RecordAlarm(msg.Code, msg.Message);
+				this->Dba->RecordAlarm(msg.Code, Replace(msg.Message, wstring(L"'"), wstring(L"''")));
 			}
 
 			if(this->Sender)
