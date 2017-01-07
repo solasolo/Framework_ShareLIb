@@ -11,6 +11,7 @@
 #include "StreamBuffer.h"
 #include "ThreadWrap.h"
 #include "SimpleProtocol.h"
+#include "SmartPointer.h"
 
 using namespace GLEO;
 
@@ -102,6 +103,7 @@ namespace GLEO
 
 		void setConnTimer(int timer);
 		void Send(string& msg);
+		void Reset();
 	};
 
 	class __declspec(dllexport) TCPServer : public TCPEventSource, public TCPCallBack, public SimpleThread

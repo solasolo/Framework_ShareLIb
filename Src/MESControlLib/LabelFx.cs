@@ -30,15 +30,16 @@ namespace GLEO.MES.UI
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            
             TransText();
+
             base.OnPaint(e);
         }
 
 
         protected void TransText() 
         {
-            string temp = TranslateLanguage.Instance.doTranslate(_DefaultText);
+            string temp = TranslateLanguage.Instance.doTranslate(this._DefaultText);
+
             if (!String.IsNullOrEmpty(temp))
             {
                 this.Text = temp;

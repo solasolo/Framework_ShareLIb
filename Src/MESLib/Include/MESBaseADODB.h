@@ -53,8 +53,10 @@ protected:
 	static string DefaultMaterial;
 
 	virtual void MakeUngererData(CommonData2& data, BaseCoilParams& params);
+	bool CheckAuftragUndo(string coilid);
 
 public:
+
 	static void Init(wstring conn_str, wstring scheme_path, string setup = "Default", string material = "Default");
 
 	UngererADO();
@@ -62,5 +64,6 @@ public:
 	int GetQueuedJobNumber();
 	void SaveTblAuftrag(CommonData2& data);
 	CommonDataList GetFinishedJob();
+	string GetRunningCoilID();
 	void RemoveAuftrag(wstring coilid);
 };

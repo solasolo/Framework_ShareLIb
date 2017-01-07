@@ -391,6 +391,10 @@ void TextTelegramBuilder::DecodeItem(string& telegram, unsigned int& pos, FieldD
 		vector<FieldDef>& fds = Scheme->GetRepatParts(tel_name,item.Name);
 		vector<FieldDef>::iterator itr = fds.begin();
 		int RepeatTimes = item.Length;
+		if (RepeatTimes == 0 && item.RepeatCountField != "")
+		{
+			RepeatTimes = values.getInt(item.RepeatCountField);
+		}
 
 		for(int K = 0; K < RepeatTimes; K++)
 		{
@@ -433,7 +437,7 @@ void TextTelegramBuilder::Decode(string& tel_name, string& telegram, CommonData2
 	TelegramDef& fds = Scheme->GetTelgram(tel_name);
 	vector<FieldDef>::iterator FieldIterator = fds.FieldDefs.begin();
 
-	if (fds.Length != telegram.size())
+	if (!fds.VariableLength && (fds.Length != telegram.size()))
 	{
 		wchar_t s[100];
 		swprintf(s, L"Telegram size Not Match: %d/%d", fds.Length, telegram.size());

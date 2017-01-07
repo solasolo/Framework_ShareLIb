@@ -17,6 +17,7 @@ using namespace MSXML2;
 struct TelegramDef
 {
 	int Length;
+	bool VariableLength;
 
 	vector<FieldDef> FieldDefs;
 	map< string, vector<FieldDef> > RepeatParts;

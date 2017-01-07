@@ -37,7 +37,7 @@ namespace GLEO.MES.Network
 
         public void Add(int data)
         {
-            this.Buffer.SetData(BitConverter.GetBytes((short)data));
+            this.Buffer.SetData(BitConverter.GetBytes(data));
         }
 
         public void Add(string data)

@@ -97,6 +97,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarcodeLib, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\BarcodeLib.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\Dlls\NPOI.dll</HintPath>
     </Reference>

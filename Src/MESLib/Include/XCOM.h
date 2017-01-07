@@ -111,7 +111,8 @@ protected:
 	void DoDataReceive(string& MessageID, string& DataBlock);
 
 	virtual void CreateLogger();
-	virtual bool CheckACK(string& telegram, string& MessageID, string& DataBlock);
+	virtual bool CheckACK(bool ACK, string& telegram, string& MessageID, string& DataBlock);
+	virtual void RecordTelegram(string& msg);
 	virtual void RecordTelegram(string& msg);
 
 	virtual void OnReceived(TCPConnection& conn);
@@ -127,6 +128,7 @@ public:
 	bool SendReply(string& MessageID, string& DataBlock);
 	bool WaitReply();
 	bool Read(string& MessageID, string& DataBlock);
+	void Record(wstring& message);
 
 	void SetCallBack(XCOMCallBack* callback);
 
