@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E378B606-E0ED-49A6-9623-D99FEA6105C0}"
 EndProject
@@ -98,7 +98,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceInstall", "..\Src\Se
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServiceGuarder", "..\Tools\ServiceGuarder\ServiceGuarder.vcxproj", "{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Barcodes", "..\Src\Barcodes\Barcodes.csproj", "{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -1377,6 +1383,38 @@ Global
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release-3.5|Win32.Build.0 = Release|Win32
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release-3.5|x64.ActiveCfg = Release|x64
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release-3.5|x64.Build.0 = Release|x64
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|Win32.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Any CPU.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Win32.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|Win32.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|x64.ActiveCfg = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Debug-3.5|x64.Build.0 = Debug|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|Win32.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release|x64.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Any CPU.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Mixed Platforms.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Win32.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|Win32.Build.0 = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|x64.ActiveCfg = Release|Any CPU
+		{CFEE2B89-DDEC-470A-B089-5ECBA0F7A99B}.Release-3.5|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1406,10 +1444,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		Association = ; :1-2005 R2; ADOComponents\ADOComponents.vcproj; ; ADOComponents; COMMInterface\COMMInterface.vcproj; ; COMMInterface; COMMInterface\Test\IPCapture\IPCapture.vcproj; ; COMMInterface\Test\IPCapture; GLEOCommon\GLEOCommon.vcproj; ; GLEOCommon; ShareLibs.sln; dev.gleosoft.com:49201; ShareLibs; ShareLibs; ShareLibs\C++\; ; SmartComponents\SmartComponents.vcproj; ; SmartComponents; XMLComponents\XMLComponents.vcproj; ; XMLComponents; 
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 	GlobalSection(Borland Source Code Provider) = preSolution
 		IsAssociated = True

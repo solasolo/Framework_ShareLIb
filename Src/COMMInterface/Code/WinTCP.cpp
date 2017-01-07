@@ -60,7 +60,7 @@ namespace GLEO
 
 	bool TCPConnection::Available()
 	{
-		return (this->Socket != NULL);
+		return (this->Socket != NULL && this->Connected);
 	}
 
 	bool TCPConnection::CheckReceiveData()
@@ -235,6 +235,18 @@ namespace GLEO
 		}
 	}
 
+	void  TCPClient::Reset()
+	{
+		this->Connected = false;
+
+		if (this->Socket)
+		{
+			DESTROY(this->Socket);
+			StreamBuffer& buf = this->GetData();
+			buf.Clear();
+		}
+	}
+
 	void TCPClient::RunTask()
 	{
 		if(!this->IsOnline())
@@ -251,7 +263,7 @@ namespace GLEO
 
 				Sleep(WaitTime);
 
-				DESTROY(this->Socket); // Renew Socket Object
+				this->Reset(); // Renew Socket Object
 				if(!this->Socket) 
 				{
 					this->Socket = new WinSocket();	

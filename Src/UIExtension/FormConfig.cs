@@ -10,14 +10,15 @@ using System.Xml;
 
 namespace GLEO.Utility
 {
-    abstract class BaseFormConfigItem
+
+    public abstract class BaseFormConfigItem
     {
-        protected FormalPrint Form;
+        protected BaseFormalPrint Form;
 
         protected float X;
         protected float Y;
 
-        public BaseFormConfigItem(FormalPrint form, XmlNode node)
+        public BaseFormConfigItem(BaseFormalPrint form, XmlNode node)
         {
             this.Form = form;
 
@@ -31,22 +32,30 @@ namespace GLEO.Utility
             this.Y += form.OffsetY;
         }
 
-        public abstract void Print(Graphics g);
+        public abstract void Print(IPrintProvider g);
     }
 
     class TextConfigItem : BaseFormConfigItem
     {
         protected Font TextFont;
-        protected string Text;
+        protected string _Text;
         protected bool IsBold;
 
-        public TextConfigItem(FormalPrint form, XmlNode node)
+        protected virtual string Text
+        {
+            get
+            {
+                return this._Text;
+            }
+        }
+
+        public TextConfigItem(BaseFormalPrint form, XmlNode node)
             : base(form, node)
         {
-            this.Text = String.Empty;
+            this._Text = String.Empty;
             this.IsBold = false;
 
-            XMLHelper.GetText(node, ref this.Text); 
+            XMLHelper.GetText(node, ref this._Text);
             XMLHelper.GetAttribute(node, "Bold", ref this.IsBold);
 
             string FontName = SystemFonts.DefaultFont.Name;
@@ -59,17 +68,30 @@ namespace GLEO.Utility
             this.TextFont = new Font(FontName, (float)FontSize, style, GraphicsUnit.Millimeter);
         }
 
-        public override void Print(Graphics g)
+        public override void Print(IPrintProvider g)
         {
-            g.DrawString(this.Text, this.TextFont, Form.PrintBrush, this.X, this.Y);
+            g.DrawText(this.Text, this.TextFont, this.X, this.Y);
         }
     }
 
     class FieldConfigItem : TextConfigItem
     {
-        private string Field;
+        protected string Field;
 
-        public FieldConfigItem(FormalPrint form, XmlNode node)
+        protected override string Text
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(this._Text))
+                {
+                    this._Text = Form.ReadField(this.Field);
+                }
+                
+                return this._Text;
+            }
+        }
+
+        public FieldConfigItem(BaseFormalPrint form, XmlNode node)
             : base(form, node)
         {
             this.Field = String.Empty;
@@ -77,10 +99,8 @@ namespace GLEO.Utility
             XMLHelper.GetAttribute(node, "Field", ref this.Field);
         }
 
-        public override void Print(Graphics g)
+        public override void Print(IPrintProvider g)
         {
-            this.Text = Form.ReadField(this.Field);
-
             base.Print(g);
         }
     }
@@ -89,18 +109,64 @@ namespace GLEO.Utility
     {
         protected int BarHeight;
 
-        public FontBarcodeConfigItem(FormalPrint form, XmlNode node)
+        public FontBarcodeConfigItem(BaseFormalPrint form, XmlNode node)
             : base(form, node)
         {
         }
 
-        public override void Print(Graphics g)
+        public override void Print(IPrintProvider g)
         {
-            float h = this.TextFont.GetHeight(g);
+            float h = g.GetTextHeight(this.TextFont);
+
             for (int i = 0; i < this.BarHeight; i++)
             {
-                base.Print(g);
+                g.DrawBarFont(this.Text, this.TextFont, this.X, this.Y);
             }
+        }
+    }
+
+    class BarcodeConfigItem : FieldConfigItem
+    {
+        protected string Type;
+        protected float Height;
+        protected float Width;
+
+        public BarcodeConfigItem(BaseFormalPrint form, XmlNode node)
+            : base(form, node)
+        {
+            XMLHelper.GetAttribute(node, "Type", ref this.Type);
+            XMLHelper.GetAttribute(node, "Height", ref this.Height);
+            XMLHelper.GetAttribute(node, "Width", ref this.Width);
+        }
+
+        public override void Print(IPrintProvider g)
+        {
+            g.DrawBar(this.Text, this.Type, this.X, this.Y, this.Width, this.Height);
+        }
+    }
+
+    class LineConfigItem : BaseFormConfigItem
+    {
+        protected float ToX;
+        protected float ToY;
+        protected float Width;
+
+        public LineConfigItem(BaseFormalPrint form, XmlNode node)
+            : base(form, node)
+        {
+            this.Width = 1;
+
+            XMLHelper.GetAttribute(node, "ToX", ref this.ToX);
+            XMLHelper.GetAttribute(node, "ToY", ref this.ToY);
+            XMLHelper.GetAttribute(node, "Width", ref this.Width);
+
+            this.ToX += form.OffsetX;
+            this.ToY += form.OffsetY;
+        }
+
+        public override void Print(IPrintProvider g)
+        {
+            g.DrawLine(this.X, this.Y, this.ToX, this.ToY, this.Width);
         }
     }
 
@@ -108,7 +174,7 @@ namespace GLEO.Utility
     {
         protected Image Image;
 
-        public ImageConfigItem(FormalPrint form, XmlNode node)
+        public ImageConfigItem(BaseFormalPrint form, XmlNode node)
             : base(form, node)
         {
             this.Image = null;
@@ -119,7 +185,7 @@ namespace GLEO.Utility
 
             path = BasePath + path;
 
-            if(!String.IsNullOrEmpty(path))
+            if (!String.IsNullOrEmpty(path))
             {
                 if (File.Exists(path))
                 {
@@ -128,7 +194,7 @@ namespace GLEO.Utility
             }
         }
 
-        public override void Print(Graphics g)
+        public override void Print(IPrintProvider g)
         {
             g.DrawImage(this.Image, this.X, this.Y);
         }

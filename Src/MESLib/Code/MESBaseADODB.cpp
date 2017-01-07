@@ -109,6 +109,18 @@ int UngererADO::GetQueuedJobNumber()
 	return Result;
 }
 
+bool UngererADO::CheckAuftragUndo(string coilid) 
+{
+	bool Result;
+
+	wstring sql = L"select null from tblAuftrag where lngPosition >= 0 and strCoilnummer='" + ~coilid + L"'";
+	CommonDataList data = this->SelectBySql(sql);
+
+	Result = !data.IsEmpty();
+
+	return Result;
+}
+
 void UngererADO::SaveTblAuftrag(CommonData2& data)
 {
 	char buf[50];
@@ -140,8 +152,11 @@ void UngererADO::SaveTblAuftrag(CommonData2& data)
 			);
 	string Name = buf;
 
-	sprintf_s(buf, 50, "%0.3fx%d", Params.EntryThickness, (int)Params.EntryWidth);
-	string Ricip = buf;
+	//sprintf_s(buf, 50, "%fx%d", Params.EntryThickness, (int)Params.EntryWidth);
+	stringstream ss;
+	ss << Params.EntryThickness << "x" << (int)Params.EntryWidth;
+	string Ricip = ss.str();
+
 	if(!this->CheckRichtplan(Ricip)) Ricip = DefaultSetup;
 
 	UNGERdata.setString("strMaterialname", MateralName);
@@ -185,12 +200,22 @@ void UngererADO::SaveTblAuftrag(CommonData2& data)
 	CommonData2 cond;
 	cond.setString("strCoilnummer", Params.CoilID);
 
-	if(!this->Update("tblAuftrag", UNGERdata, cond))
+	if (!this->CheckAuftragUndo(Params.CoilID))
 	{
 		UNGERdata.setString("strName", Name);
 		UNGERdata.setInt("lngPosition", this->GetLastSn());
 		this->Insert("tblAuftrag", UNGERdata);
 	}
+	else
+	{
+		if (!this->Update("tblAuftrag", UNGERdata, cond))
+		{
+			UNGERdata.setString("strName", Name);
+			UNGERdata.setInt("lngPosition", this->GetLastSn());
+			this->Insert("tblAuftrag", UNGERdata);
+		}
+	}
+
 }
 
 void UngererADO::RemoveAuftrag(wstring coilid)
@@ -203,6 +228,19 @@ void UngererADO::RemoveAuftrag(wstring coilid)
 CommonDataList UngererADO::GetFinishedJob()
 {
 	return this->SelectBySql(L"select strCoilnummer from tblAuftrag where lngPosition = -4096"); 
+}
+
+string UngererADO::GetRunningCoilID()
+{
+	string Result = "";
+
+	CommonData2 data = this->SelectTopBySql(L"select strCoilnummer from tblAuftrag where lngPosition = -1024");
+	if (!data.IsEmpty())
+	{
+		Result = data.getString("strCoilnummer");
+	}
+
+	return Result;
 }
 
 int UngererADO::GetLastSn()

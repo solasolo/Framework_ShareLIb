@@ -342,6 +342,11 @@ bool BaseXCOM::Read(string& MessageID, string& DataBlock)
 	return Result;
 }
 
+void BaseXCOM::Record(wstring& message)
+{
+	this->RecordTelegram(~message);
+}
+
 void BaseXCOM::SetCallBack(XCOMCallBack* callback)
 {
 	this->CallBackHandle = callback;
@@ -411,7 +416,7 @@ void BaseXCOM::SendHeartbeat()
 		Client->Send(Temp);
 	}
 
-	this->MessageLog("==> LIV: %s", Temp.c_str());
+	//this->MessageLog("==> LIV: %s", Temp.c_str());
 } 
 
 void BaseXCOM::SendHeartbeatACK(TCPConnection& conn)
@@ -440,6 +445,7 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 	string MID;//电文编号
 	string DataBlock;//电文数据
 	wstring Err;
+	bool ack;
 	char tmp[10];
 
 	BaseXCOMCodec::MessageDir Dir = (&conn == (TCPConnection*)this->Client) ? BaseXCOMCodec::MessageDir::Client : BaseXCOMCodec::MessageDir::Server;
@@ -457,6 +463,7 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 			break;
 		
 		case BaseXCOMCodec::MessageType::MESSAGE_ACK:
+		case BaseXCOMCodec::MessageType::MESSAGE_NAK:
 			TypeString = "ACK";
 			break;
 
@@ -464,7 +471,10 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 			TypeString = "MSG";
 		}
 
-		this->MessageLog("<== %s:[%s](%d)%s", TypeString.c_str(), MID.c_str(), telegram.size(), telegram.c_str()); 
+		if (MsgType != BaseXCOMCodec::MessageType::LIVE_MESSAGE)
+		{
+			this->MessageLog("<== %s:[%s](%d)%s", TypeString.c_str(), MID.c_str(), telegram.size(), telegram.c_str());
+		}
 
 		switch (MsgType)
 		{
@@ -505,7 +515,9 @@ void BaseXCOM::OnReceived(TCPConnection& conn)
 			break;
 
 		case BaseXCOMCodec::MessageType::MESSAGE_ACK:
-			if(this->CheckACK(telegram, MID, DataBlock))
+		case BaseXCOMCodec::MessageType::MESSAGE_NAK:
+			ack = (MsgType == BaseXCOMCodec::MessageType::MESSAGE_ACK);
+			if(this->CheckACK(ack, telegram, MID, DataBlock))
 			{
 				ReplyEvent->Set();
 				this->LastSendMsgID.empty();
@@ -664,7 +676,7 @@ DWORD WINAPI BaseXCOM::WatchDogThread(void* param)
 	return 0;
 }
 
-bool BaseXCOM::CheckACK(string& telegram, string& MessageID, string& DataBlock)
+bool BaseXCOM::CheckACK(bool ACK, string& telegram, string& MessageID, string& DataBlock)
 {
 	return (MessageID == this->LastSendMsgID);
 }

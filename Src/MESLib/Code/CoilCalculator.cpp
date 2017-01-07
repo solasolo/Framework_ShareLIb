@@ -1,5 +1,8 @@
 #include "CoilCalculator.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 CoilCalculator::CoilCalculator()
 {
 	this->Length = 0.0;
@@ -60,6 +63,16 @@ double CoilCalculator::Length2Weight(double value)
 double CoilCalculator::Weight2Length(double value)
 {
 	return value / (this->Width * this->Thickness * this->Density);
+}
+
+double CoilCalculator::Length2Diameter(double value, double inner)
+{
+	return sqrt((this->Thickness * this->Length) / M_PI_4 + inner * inner);
+}
+
+double CoilCalculator::Diameter2Length(double value, double inner)
+{
+	return (value * value - inner * inner) * M_PI_4 / this->Thickness;
 }
 
 double CoilCalculator::Devide(double value, double max_val, double min_val, int* count)

@@ -9,6 +9,8 @@ namespace GLEO.MES.Sys
 {
     public static class Global
     {
+        private static Dictionary<string, object> Data = new Dictionary<string, object>();
+
         public static string AppTitle;
         public static string AppName;
 
@@ -20,6 +22,21 @@ namespace GLEO.MES.Sys
         public static string BasePath = Application.StartupPath;
         public static string RptPath = BasePath + "\\..\\Reports\\";
 
-        public static Dictionary<string, object> Data = new Dictionary<string,object>();
+        public static object Get(string name)
+        {
+            object Result = null;
+
+            if (Data.ContainsKey(name))
+            {
+                Result = Data[name];
+            }
+
+            return Result;
+        }
+
+        public static void Set(string name, object value)
+        {
+            Data[name] = value;
+        }
     }
 }

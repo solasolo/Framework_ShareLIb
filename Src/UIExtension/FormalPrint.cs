@@ -1,4 +1,5 @@
-﻿using GLEO.Base;
+﻿using BarcodeLib;
+using GLEO.Base;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,6 +10,17 @@ using System.Xml;
 
 namespace GLEO.Utility
 {
+    public interface IPrintProvider
+    {
+        void DrawText(string Text, Font Font, float X, float Y);
+        void DrawImage(Image Image, float X, float Y);
+        void DrawLine(float FromX, float FromY, float ToX, float ToY, float Width);
+        void DrawBar(string Text, string Type, float X, float Y, float Width, float Height);
+        void DrawBarFont(string Text, Font Font, float X, float Y);
+
+        float GetTextHeight(Font Font);
+    }
+
     interface IPrintContentProvider
     {
         string GetText(string field);
@@ -58,19 +70,17 @@ namespace GLEO.Utility
         }
     }
 
-    public class FormalPrint : PrintDocument
+    public abstract class BaseFormalPrint
     {
-        string PrinterName;
-        int CopyCount;
+        protected int CopyCount;
 
-        float Width;
-        float Height;
-        float _OffsetX;
-        float _OffsetY;
-        Brush _PrintBrush;
+        protected float Width;
+        protected float Height;
+        protected float _OffsetX;
+        protected float _OffsetY;
+
         IPrintContentProvider Provider;
-
-        private List<BaseFormConfigItem> Items;
+        protected List<BaseFormConfigItem> Items;
 
         public float OffsetX
         {
@@ -88,27 +98,16 @@ namespace GLEO.Utility
             }
         }
 
-        public Brush PrintBrush
-        {
-            get
-            {
-                return this._PrintBrush;
-            }
-        }
-
-        public FormalPrint(string conf_file)
+        public BaseFormalPrint(string conf_file)
         {
             this.Provider = null;
             this.Items = null;
 
-            this.PrinterName = String.Empty;
             this.CopyCount = 1;
             this.Width = 0;
             this.Height = 0;
             this._OffsetX = 0;
             this._OffsetY = 0;
-
-            this._PrintBrush = new SolidBrush(Color.Black);
 
             this.Load(conf_file);
         }
@@ -117,22 +116,16 @@ namespace GLEO.Utility
         {
             XmlDocument Doc = new XmlDocument();
             Doc.Load(conf_file);
-            
+
             XmlNode root = Doc.DocumentElement;
-            XmlAttribute attr;
 
-            XMLHelper.GetAttribute(root, "Printer", ref this.PrinterName);
-            if(this.PrinterName != String.Empty)
-            {
-                this.DefaultPageSettings.PrinterSettings.PrinterName = this.PrinterName;
-            }
+            this.Load(root);
+        }
 
+        protected virtual void Load(XmlNode root)
+        {
             XMLHelper.GetAttribute(root, "Width", ref this.Width);
             XMLHelper.GetAttribute(root, "Height", ref this.Height);
-            if (this.Width != 0 && this.Height != 0)
-            {
-                this.DefaultPageSettings.PaperSize = new PaperSize("Custom", (int)((float)this.Width / 0.254), (int)((float)this.Height / 0.254));
-            }
 
             XMLHelper.GetAttribute(root, "Count", ref this.CopyCount);
             XMLHelper.GetAttribute(root, "OffsetX", ref this._OffsetX);
@@ -158,21 +151,30 @@ namespace GLEO.Utility
                         item = new FieldConfigItem(this, n);
                     }
                 }
-                else if(n.Name == "Image")
-                { 
+                else if (n.Name == "Image")
+                {
                     item = new ImageConfigItem(this, n);
                 }
-                else if (n.Name == "Bar")
+                else if (n.Name == "Barfont")
                 {
                     item = new FontBarcodeConfigItem(this, n);
                 }
-
-                if(item != null)
+                else if (n.Name == "Barcode")
+                {
+                    item = new BarcodeConfigItem(this, n);
+                }
+                else if (n.Name == "Line")
+                {
+                    item = new LineConfigItem(this, n);
+                }
+                if (item != null)
                 {
                     this.Items.Add(item);
                 }
             }
         }
+
+        protected abstract void Print();
 
         public string ReadField(string field)
         {
@@ -207,18 +209,119 @@ namespace GLEO.Utility
 
         private void SetCopies(int count)
         {
-            short copies = (count > 0) ? (short)count : (short)this.CopyCount;
-            this.DefaultPageSettings.PrinterSettings.Copies = copies;
+            if (count > 0)
+            {
+                this.CopyCount = count;
+            }
+        }
+    }
+
+    class GraphicsPrinter : IPrintProvider
+    {
+        private Graphics Graphics;
+
+        Brush PrintBrush;
+
+        public GraphicsPrinter(Graphics g)
+        {
+            this.Graphics = g;
+            this.Graphics.PageUnit = GraphicsUnit.Millimeter;
+
+            this.PrintBrush = new SolidBrush(Color.Black);
         }
 
-        protected override void OnPrintPage(PrintPageEventArgs e)
+        public void DrawText(string Text, Font Font, float X, float Y)
+        {
+            this.Graphics.DrawString(Text, Font, PrintBrush, X, Y);
+        }
+
+        public void DrawImage(Image Image, float X, float Y)
+        {
+            this.Graphics.DrawImage(Image, X, Y);
+        }
+
+        public void DrawLine(float FromX, float FromY, float ToX, float ToY, float Width)
+        {
+            Pen PrintPen = new Pen(Color.Black, Width);
+            this.Graphics.DrawLine(PrintPen, FromX, FromY, ToX, ToY);
+        }
+
+        public void DrawBar(string Text, string Type, float X, float Y, float Width, float Height)
+        {
+            TYPE BarType = TYPE.CODE128;
+            switch (Type)
+            {
+                case "Code128":
+                    BarType = TYPE.CODE128;
+                    break;
+
+                case "Code39":
+                    BarType = TYPE.CODE39;
+                    break;
+            }
+
+            Image img = Barcode.DoEncode(BarType, Text, false, (int)Width, (int)Height);
+            this.Graphics.DrawImage(img, X, Y);
+        }
+
+        public void DrawBarFont(string Text, Font Font, float X, float Y)
+        {
+            this.Graphics.DrawString(Text, Font, PrintBrush, X, Y);
+        }
+
+        public float GetTextHeight(Font Font)
+        {
+            return Font.GetHeight();
+        }
+
+    }
+
+    public class FormalPrint : BaseFormalPrint
+    {
+        PrintDocument Printer;
+        string PrinterName;
+
+        public FormalPrint(string conf_file)
+            : base(conf_file)
+        {
+            this.Printer.PrintPage += new PrintPageEventHandler(this.DoPrintPage);
+
+        }
+
+        protected override void Load(XmlNode root)
+        {
+            this.PrinterName = String.Empty;
+            this.Printer = new PrintDocument();
+
+            base.Load(root);
+
+            XMLHelper.GetAttribute(root, "Printer", ref this.PrinterName);
+            if (this.PrinterName != String.Empty)
+            {
+                this.Printer.DefaultPageSettings.PrinterSettings.PrinterName = this.PrinterName;
+            }
+        }
+
+        protected override void Print()
+        {
+            this.Printer.DefaultPageSettings.PrinterSettings.Copies = (short)this.CopyCount;
+
+            if (this.Width != 0 && this.Height != 0)
+            {
+                this.Printer.DefaultPageSettings.PaperSize = new PaperSize("Custom", (int)((float)this.Width / 0.254), (int)((float)this.Height / 0.254));
+            }
+
+            this.Printer.Print();
+        }
+
+        protected void DoPrintPage(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
-            g.PageUnit = GraphicsUnit.Millimeter;
+            GraphicsPrinter printer = new GraphicsPrinter(g);
 
             foreach (BaseFormConfigItem item in this.Items)
             {
-                item.Print(g);
+                item.Print(printer);
             }
         }
     }

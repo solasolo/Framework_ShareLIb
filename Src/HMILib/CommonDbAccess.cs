@@ -169,7 +169,7 @@ namespace GLEO.MES.Sys
 
                 this.SetParameter("@key", key);
 
-                if (this.IfExist(CheckSQL))
+                if (!this.IfExist(CheckSQL))
                 {
                     string Sql = "insert into MultiyLang (OrigenalName,Chinese,English,Germany,Japanese) values (@key,null,null,null,null)";
                     Result = (this.ExecuteNonQuery(Sql) == 1);

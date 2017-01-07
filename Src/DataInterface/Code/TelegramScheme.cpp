@@ -178,12 +178,18 @@ namespace MSXML2
 		IXMLDOMNodeListPtr l;
 		l = root->childNodes;
 
+		defs.VariableLength = false;
+
 		for(long i = 0;  i < l->length; i++)
 		{
 			IXMLDOMNodePtr node = l->item[i];
 
 			ReadNode(node, Value);
 			defs.FieldDefs.push_back(Value);
+			if (Value.RepeatCountField != "")
+			{
+				defs.VariableLength = true;
+			}
 
 			if(Value.Type == FieldDef::Repeat)
 			{	
