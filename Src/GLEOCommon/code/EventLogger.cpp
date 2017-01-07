@@ -83,7 +83,7 @@ namespace GLEO
 		wchar_t buf[20];
 
 		buf[19] = L'\x0';
-		swprintf_s(buf, 19, L"%02d%02d%02d", t.wYear, t.wMonth, t.wDay);
+		swprintf_s(buf, 19, L"%04d%02d%02d", t.wYear, t.wMonth, t.wDay);
 
 		return buf;
 	}

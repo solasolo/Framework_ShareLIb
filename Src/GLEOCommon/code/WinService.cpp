@@ -48,6 +48,7 @@ namespace Win32Lib
 
 	ServiceManager::ServiceManager(wstring service_name)
 	{
+		Handle = 0;
 		Service = NULL;
 		ServiceName = service_name;
 		OpenHandle();
@@ -179,6 +180,28 @@ namespace Win32Lib
 		else
 		{
 		}
+	}
+
+	bool ServiceManager::IsRunning()
+	{
+		bool Result = false;
+
+		SERVICE_STATUS Status;
+		if (!QueryServiceStatus(this->Handle, &Status))
+		{
+			throw WinException(_T("Query Service ") + ServiceName);
+		}
+		else
+		{
+			Result = (Status.dwCurrentState == SERVICE_RUNNING);
+		}
+
+		return Result;
+	}
+
+	wstring ServiceManager::getName()
+	{
+		return this->ServiceName;
 	}
 
 	void ServiceManager::RegisterService()

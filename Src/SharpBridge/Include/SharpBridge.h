@@ -8,7 +8,7 @@
 
 using namespace std;
 
-using namespace System;
+using namespace ::System;
 using namespace Runtime::InteropServices;
 
 namespace GLEO {
@@ -36,7 +36,7 @@ namespace GLEO {
 
 	inline String^ TypeBridge::MarshalToString(wstring& os) 
 	{
-		System::IntPtr inptr((void *)os.c_str());
+		::System::IntPtr inptr((void *)os.c_str());
 		String ^ s = Marshal::PtrToStringUni(inptr, os.size());
 
 		return s;

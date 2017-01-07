@@ -14,6 +14,14 @@
     <ProjectGuid>{046CB303-7638-46CA-B0B6-7906B00C3FEB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TestWorkPlan</RootNamespace>
+    <SccProjectName>
+    </SccProjectName>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

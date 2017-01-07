@@ -94,6 +94,21 @@ void UngererADO::MakeUngererData(CommonData2& data, BaseCoilParams& params)
 {
 }
 
+int UngererADO::GetQueuedJobNumber()
+{
+	int Result = 0;
+
+	CommonDataList data = this->SelectBySql(L"select count(lngPosition) as c from tblAuftrag where lngPosition >= 0");
+	if (data.NextRow())
+	{
+		Result = data.getInt("c");
+	}
+
+	Result = (Result < 0) ? 0 : Result + 1;
+
+	return Result;
+}
+
 void UngererADO::SaveTblAuftrag(CommonData2& data)
 {
 	char buf[50];

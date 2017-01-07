@@ -659,6 +659,7 @@ namespace GLEO.DBUtility
         {
             long Result = 0;
 
+            /*
             if (this.IfExist(td, obj, db))
             {
                 List<SQLItem> CondData = this.MakeKeyItems(td, obj);
@@ -667,7 +668,17 @@ namespace GLEO.DBUtility
             }
             else
             {
-                this.InsertObject(obj, db, td, SQLData);
+                Result = this.InsertObject(obj, db, td, SQLData);
+            }
+            */
+
+            List<SQLItem> CondData = this.MakeKeyItems(td, obj);
+            string sql = db.GetSQLBuilder().PrepareUpdate(td.TableName, SQLData, CondData, db);
+            Result = -db.ExecuteNonQuery(sql);
+
+            if(Result == 0)
+            {
+                Result = this.InsertObject(obj, db, td, SQLData);
             }
 
             return Result;

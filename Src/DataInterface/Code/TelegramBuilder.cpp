@@ -10,6 +10,43 @@
 
 using namespace GLEO;
 
+BaseTelegramItemError::BaseTelegramItemError(string item, bool decode)
+	: Exception(L"", decode ? L"Decode" : L"Encode")
+{
+	this->ItemName = ~item;
+}
+
+BaseTelegramItemError& BaseTelegramItemError::operator =(const BaseTelegramItemError& ex) throw()
+{
+	this->ItemName = ex.ItemName;
+
+	return *this;
+}
+
+TelegramItemSizeError::TelegramItemSizeError(string item, bool decode)
+	: BaseTelegramItemError(item, decode)
+{
+}
+
+wstring TelegramItemSizeError::GetErrorDescription()
+{
+	return wstring(L"[") + this->ItemName + L"] Error Size in Telegram";
+}
+
+TelegramItemFormatError::TelegramItemFormatError(string item, bool decode)
+	: BaseTelegramItemError(item, decode)
+{
+}
+
+wstring TelegramItemFormatError::GetErrorDescription()
+{
+	return wstring(L"[") + this->ItemName + L"] Error Format in Telegram";
+}
+
+//
+//
+//
+
 const int BaseTelegramBuilder::MAX_FIELD_LENGTH = 255;
 
 BaseTelegramBuilder::BaseTelegramBuilder(wstring& file_name)
@@ -31,6 +68,7 @@ TextTelegramBuilder::TextTelegramBuilder(wstring& file_name)
 	: BaseTelegramBuilder(file_name)
 {
 	this->BlankChar = ' ';
+	this->IsFix = this->Scheme->IsFix;
 }
 
 TextTelegramBuilder::~TextTelegramBuilder()
@@ -58,13 +96,18 @@ void TextTelegramBuilder::FormatPart(string& part, variant_t& data, FieldDef& it
 {
 	char Temp[MAX_FIELD_LENGTH + 1];
 	char format[20];
+	char* format2;
 
 	Temp[MAX_FIELD_LENGTH] = '\x0';
-	format[19] = '\x0';
+	format[0] = format[19] = '\x0';
 
 	part.clear();
 	FieldDef::FieldType Type = item.Type;
 	int Length = item.Length;
+
+	double FloatValue;
+	string StringValue;
+	int InputLength;
 
 	Temp[0] = '\x0';
 	switch(Type)
@@ -75,13 +118,53 @@ void TextTelegramBuilder::FormatPart(string& part, variant_t& data, FieldDef& it
 		break;
 
 	case FieldDef::String:
-		sprintf_s(format, 19, "%%%ds", Length);
-		sprintf_s(Temp, MAX_FIELD_LENGTH, format, ToString(data).c_str());
+		StringValue = ToString(data);
+		InputLength = StringValue.size();
+
+		if (Length < MAX_FIELD_LENGTH)
+		{
+			format2 = (this->Scheme->PaddingLeft) ? "%%-%ds" : "%%%ds";
+			sprintf_s(format, 19, format2, Length);
+
+			sprintf_s(Temp, MAX_FIELD_LENGTH, format, StringValue.c_str());
+		}
+		else
+		{
+			if (InputLength < Length)
+			{
+				//part = "";
+				//part.resize(Length = InputLength, ' ');
+				//part += StringValue;
+
+				part = StringValue;
+				PadRight(part, Length, ' ');
+			}
+			else
+			{
+				part = StringValue;
+			}
+		}
 		break;
 
 	case FieldDef::Float:
-		sprintf_s(format, 19, "%%0%d.%df", Length, item.Dec);
-		sprintf_s(Temp, MAX_FIELD_LENGTH, format, ToFloat(data));
+		FloatValue = ToFloat(data);
+		
+		if (this->IsFix)
+		{
+			for (int d = 0; d < item.Dec; d++)
+			{
+				FloatValue *= 10;
+			}
+
+			sprintf_s(format, 19, "%%0%dd", Length);
+			sprintf_s(Temp, MAX_FIELD_LENGTH, format, int(FloatValue));
+		}
+		else
+		{
+			sprintf_s(format, 19, "%%0%d.%df", Length, item.Dec);
+			sprintf_s(Temp, MAX_FIELD_LENGTH, format, FloatValue);
+		}
+		
 		break;
 
 	case FieldDef::DateTime:
@@ -101,7 +184,7 @@ void TextTelegramBuilder::FormatPart(string& part, variant_t& data, FieldDef& it
 
 	if(part.length() != Length) 
 	{
-		throw Exception(string("Error Data in Building Telegram at[") + item.Name + "]", "Encode Item");
+		throw TelegramItemSizeError(item.Name, false);
 	}
 }
 
@@ -136,27 +219,48 @@ void TextTelegramBuilder::ExtractPart(string& part, FieldDef& item, CommonData2&
 			}
 			else
 			{
-				throw Exception(string("Error Format in Building Telegram at[") + item.Name + "]", "Decode Item");
+				throw TelegramItemFormatError(item.Name, true);
 			}
 			break;
 
 		case FieldDef::Float: 
-			//		data = atof(part.c_str()); 
-
 			for(i = 0; i < part.size(); i++)
 			{
 				if(part[i] == ' ') part[i] = '0';
 			}
 
-			sprintf_s(format, 19, "%%%dlf", Length);
-			if(sscanf(part.c_str(), format, &FloatData) == 1)
+			if (!this->IsFix)
 			{
-				data = FloatData;
+				sprintf_s(format, 19, "%%%dlf", Length);
+				if (sscanf(part.c_str(), format, &FloatData) == 1)
+				{
+					data = FloatData;
+				}
+				else
+				{
+					throw TelegramItemFormatError(item.Name, true);
+				}
 			}
 			else
 			{
-				throw Exception(string("Error Format in Building Telegram at[") + item.Name + "]", "Decode Item");
+				sprintf_s(format, 19, "%%%dd", Length);
+				if (sscanf(part.c_str(), format, &IntData) == 1)
+				{
+					FloatData = (double)IntData;
+				}
+				else
+				{
+					throw TelegramItemFormatError(item.Name, true);
+				}
+
+				for (int d = 0; d < item.Dec; d++)
+				{
+					FloatData /= 10;
+				}
+
+				data = FloatData;
 			}
+
 			values.setData(item.Name, data);
 			break;
 
@@ -199,8 +303,10 @@ void TextTelegramBuilder::EmptyPart(string& part, FieldDef& item)
 		break;
 	}
 
-	if(strlen(Temp) != Length) 
-		throw Exception(string("Error Data in Building Telegram at[") + item.Name + "]", "Encode Item");
+	if (strlen(Temp) != Length)
+	{
+		throw TelegramItemSizeError(item.Name, false);
+	}
 
 	part = "";
 	part.resize(Length, 0x0);
@@ -275,7 +381,7 @@ void TextTelegramBuilder::DecodeItem(string& telegram, unsigned int& pos, FieldD
 		}
 		else
 		{
-			throw Exception(string("Not Enough Length Telegram at[") + item.Name + "]", "Decode Telegram");
+			throw TelegramItemSizeError(item.Name, true);
 		}
 	}
 	else
@@ -326,6 +432,13 @@ void TextTelegramBuilder::Decode(string& tel_name, string& telegram, CommonData2
 {
 	TelegramDef& fds = Scheme->GetTelgram(tel_name);
 	vector<FieldDef>::iterator FieldIterator = fds.FieldDefs.begin();
+
+	if (fds.Length != telegram.size())
+	{
+		wchar_t s[100];
+		swprintf(s, L"Telegram size Not Match: %d/%d", fds.Length, telegram.size());
+		throw Exception(wstring(s), L"Telegram Decode");
+	}
 
 	unsigned int Position = 0;//Î»ÖÃ³õÊ¼»¯
 
@@ -425,7 +538,7 @@ void DelimiterTelegramBuilder::DecodeItem(string& telegram, unsigned int& pos, F
 		}
 		else
 		{
-			throw Exception(string("Not Enough Length Telegram at[") + item.Name + "]", "Decode Telegram");
+			throw TelegramItemSizeError(item.Name, true);
 		}
 	}
 	else
@@ -477,7 +590,7 @@ void DelimiterTelegramBuilder::Decode(string& tel_name, string& telegram, Common
 BinaryTelegramBuilder::BinaryTelegramBuilder(wstring& file_name)
 	: BaseTelegramBuilder(file_name)
 {
-	isBig = Scheme->IsBig;
+	IsBig = this->Scheme->IsBig;
 }
 
 BinaryTelegramBuilder::~BinaryTelegramBuilder()
@@ -540,7 +653,7 @@ void BinaryTelegramBuilder::DecodeItem(BinaryDecoder& decoder, FieldDef& item, C
 {
 	if(item.Type != FieldDef::Repeat)
 	{
-		if(!isBig)
+		if(!IsBig)
 		{
 			ExtractPart(decoder, item, values);
 		}
@@ -625,7 +738,7 @@ void BinaryTelegramBuilder::EncodeItem(BinaryEncoder& buffer, FieldDef& item, Co
 	if(item.Type != FieldDef::Repeat)
 	{
 		variant_t Value = values.getData(FieldName);
-		if(!isBig)
+		if(!IsBig)
 		{
 			FormatPart(buffer, Value, item);
 		}

@@ -103,8 +103,11 @@ namespace Win32Lib
 		void Install(wstring path);
 		void Install();
 		void Uninstall();
-		void Start(int nArg, LPTSTR* pArg);
+		void Start(int nArg = 0, LPTSTR* pArg = NULL);
 		void Stop();
+		bool IsRunning();
+
+		wstring getName();
 	};
 }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace GLEO.System
+namespace GLEO.Base
 {
     public class ObjectHelper
     {

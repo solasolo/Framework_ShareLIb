@@ -53,8 +53,8 @@ namespace GLEO
 
 	__declspec(dllexport) string ToNarrowString(const wstring& str);
 	__declspec(dllexport) wstring ToWideString(const string& str);
-	__declspec(dllexport) TString ToString(const string& str);
-	__declspec(dllexport) TString ToString(const wstring& str);
+	__declspec(dllexport) string ToUTF8String(const wstring& str);
+	__declspec(dllexport) wstring FromUTF8String(const string& str);
 
 	inline void SafeDestroy(void* &pointer)
 	{
@@ -95,9 +95,12 @@ namespace GLEO
 	basic_string<_Elem,_Traits,_Ax> TrimRight(basic_string<_Elem,_Traits,_Ax>& str);
 
 	template<typename _Elem, typename _Traits, typename _Ax> 
-	basic_string<_Elem,_Traits,_Ax> PadRight(basic_string<_Elem,_Traits,_Ax>& str, unsigned int len, _Elem ch);
+	basic_string<_Elem,_Traits,_Ax>& PadRight(basic_string<_Elem,_Traits,_Ax>& str, unsigned int len, _Elem ch);
 
-	__declspec(dllexport) TString ExtractFilePath(TString path);
+	template<typename _Elem, typename _Traits, typename _Ax>
+	basic_string<_Elem, _Traits, _Ax> Replace(basic_string<_Elem, _Traits, _Ax>& str, basic_string<_Elem, _Traits, _Ax> pattern, basic_string<_Elem, _Traits, _Ax> dstPattern, int count = -1);
+
+	__declspec(dllexport) wstring ExtractFilePath(wstring path);
 
 	const time_t TIME_A_HOUR = 60 * 60;
 	const time_t TIME_A_DAY = 24 * TIME_A_HOUR;
@@ -172,7 +175,7 @@ namespace GLEO
 		int findspace = Result.find_first_not_of(' ');
 		if(findspace == -1)
 		{
-			Result ="";
+			Result.clear();
 		}
 		else if(findspace != 0)
 			Result = Result.substr(findspace, Result.size() - findspace);
@@ -184,16 +187,54 @@ namespace GLEO
 
 
 	template<typename _Elem, typename _Traits, typename _Ax> 
-	basic_string<_Elem,_Traits,_Ax> PadRight(basic_string<_Elem,_Traits,_Ax>& str, unsigned int len, _Elem ch)
+	basic_string<_Elem,_Traits,_Ax>& PadRight(basic_string<_Elem,_Traits,_Ax>& str, unsigned int len, _Elem ch)
 	{
-		basic_string<_Elem,_Traits,_Ax> Result = str;
+		if(str.size() < len)
+			str.resize(len, ch);
+		else if(str.size() > len)
+			throw Exception("Length Excced", "String Pad Right");
 
-		if(Result.size() < len) 
-			Result.resize(len, ch);
-		else if(Result.size() > len)
-			throw Exception("Length Excced", "TString Pad Right");
+		return str;
+	}
 
-		return Result;
+	template<typename _Elem, typename _Traits, typename _Ax>
+	basic_string<_Elem, _Traits, _Ax> Replace(basic_string<_Elem, _Traits, _Ax>& str, basic_string<_Elem, _Traits, _Ax> pattern, basic_string<_Elem, _Traits, _Ax> dstPattern, int count)
+	{
+		basic_string<_Elem, _Traits, _Ax> retStr;
+		basic_string<_Elem, _Traits, _Ax>::size_type pos;
+
+		retStr.clear();
+
+		int szStr = str.length();
+		int szPattern = pattern.size();
+		int i = 0;
+		int l_count = 0;
+		if (-1 == count) // replace all
+			count = szStr;
+
+		for (i = 0; i<szStr; i++)
+		{
+			pos = str.find(pattern, i);
+
+			if (basic_string<_Elem, _Traits, _Ax>::npos == pos)
+				break;
+			if (pos < szStr)
+			{
+				basic_string<_Elem, _Traits, _Ax> s = str.substr(i, pos - i);
+				retStr += s;
+				retStr += dstPattern;
+				i = pos + pattern.length() - 1;
+				if (++l_count >= count)
+				{
+					i++;
+					break;
+				}
+			}
+		}
+
+		retStr += str.substr(i);
+
+		return retStr;
 	}
 
 	template<typename _Elem, typename _Traits, typename _Ax> 

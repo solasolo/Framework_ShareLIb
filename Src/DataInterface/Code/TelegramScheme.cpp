@@ -13,6 +13,9 @@ namespace MSXML2
 	TelegramScheme::TelegramScheme(wstring& file_name)
 	{ 
 		IsBig = false;
+		IsFix = false;
+		PaddingLeft = false;
+
 		IXMLDOMDocumentPtr doc = NULL;
 
 		HRESULT hr = doc.CreateInstance(__uuidof(DOMDocument));
@@ -31,7 +34,6 @@ namespace MSXML2
 			throw Exception(string("Bad File:") + ToNarrowString(file_name), "Loading Telegram Scheme File");
 		}
 		
-		//ÅÐ¶Ï´ó¶Ë¶ÔÆë
 		IXMLDOMNamedNodeMapPtr attributeMap = root->attributes;
 		for(int j = 0; j < attributeMap->length; j++)
 		{
@@ -46,6 +48,22 @@ namespace MSXML2
 				if(str == "Big")
 				{
 					IsBig = true;
+				}
+			}
+			else if (AttName == _bstr_t(L"NubmerFormat"))
+			{
+				string str = Attr->text;
+				if (str == "Fix")
+				{
+					IsFix = true;
+				}
+			}
+			else if (AttName == _bstr_t(L"Padding"))
+			{
+				string str = Attr->text;
+				if (str == "Left")
+				{
+					PaddingLeft = true;
 				}
 			}
 		}
@@ -67,7 +85,6 @@ namespace MSXML2
 
 	void TelegramScheme::ReadTelgrams(IXMLDOMNodePtr root)
 	{
-		
 		IXMLDOMNodeListPtr l;
 		l = root->childNodes;
 		for(long i = 0;  i < l->length; i++)
@@ -92,11 +109,12 @@ namespace MSXML2
 					pair<map<string, TelegramDef>::iterator, bool> InsPtr;	
 
 					TelegramDef td;
+					td.Length = 0;
+
 					string TelegramName = (char*)(_bstr_t)Attr->nodeValue;
 					InsPtr = ProtocolDefs.insert(pair<string, TelegramDef>(TelegramName, td));
 
 					ReadTelgram(node, InsPtr.first->second);
-
 				}	
 			}
 		}
@@ -170,20 +188,30 @@ namespace MSXML2
 			if(Value.Type == FieldDef::Repeat)
 			{	
 				string RepeatName = Value.Name;
+				int RepeatLength = Value.Length;
 				vector<FieldDef> Repeater;
 
 				IXMLDOMNodeListPtr rl;
 				rl = node->childNodes;
 
+				int SubLength = 0;
 				for(long j = 0; j < rl->length; j++)
 				{	
 					IXMLDOMNodePtr rnode = rl->item[j];
 
 					ReadNode(rnode, Value);
 					Repeater.push_back(Value);
+
+					SubLength += Value.Length;
 				}
 				
 				defs.RepeatParts.insert(pair<string, vector<FieldDef> >(RepeatName, Repeater));
+
+				defs.Length += RepeatLength * SubLength;
+			}
+			else
+			{
+				defs.Length += Value.Length;
 			}
 		}
 	}

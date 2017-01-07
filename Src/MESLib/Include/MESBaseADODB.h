@@ -59,6 +59,7 @@ public:
 
 	UngererADO();
 
+	int GetQueuedJobNumber();
 	void SaveTblAuftrag(CommonData2& data);
 	CommonDataList GetFinishedJob();
 	void RemoveAuftrag(wstring coilid);

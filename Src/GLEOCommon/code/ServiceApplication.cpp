@@ -35,6 +35,8 @@ namespace GLEO
 
 		bool Result = false;
 
+		BaseEventLogger* log = this->ServiceModule::BuildLogger();
+
 		if(true)
 		{
 			try
@@ -50,17 +52,19 @@ namespace GLEO
 			}
 			catch(Exception& ex)
 			{
-				this->Log(etError, FormatException(L"StartProcess", ex));
+				log->Log(etError, FormatException(L"StartProcess", ex));
 			}
 			catch(_com_error& ex)
 			{
-				this->Log(etError, FormatException(L"StartProcess", ex));
+				log->Log(etError, FormatException(L"StartProcess", ex));
 			}
 			catch(exception& ex)
 			{
-				this->Log(etError, FormatException(L"StartProcess", ex));
+				log->Log(etError, FormatException(L"StartProcess", ex));
 			}
 		}
+
+		DESTROY(log);
 
 		CoUninitialize();
 
@@ -70,6 +74,8 @@ namespace GLEO
 	bool ServiceModule::Stop()
 	{
 		bool Result = false;
+
+		BaseEventLogger* log = this->ServiceModule::BuildLogger();
 
 		try
 		{
@@ -89,6 +95,8 @@ namespace GLEO
 		{
 			this->Log(etError, FormatException(L"StopProcess", ex));
 		}
+
+		DESTROY(log);
 
 		return Result;
 	}

@@ -19,6 +19,8 @@ namespace GLEO
 
 namespace GLEO
 {
+	bool TCPConnection::Debug = false;
+
 	TCPConnection::TCPConnection()
 		: SimpleThread(L"Connection", true)
 	{
@@ -76,6 +78,10 @@ namespace GLEO
 				if(Data.length() > 0)
 				{
 					Buffer << Data;
+				}
+				else
+				{
+					Result = false;
 				}
 			}	
 		}
@@ -238,7 +244,11 @@ namespace GLEO
 				long WaitTime = this->ConnectionRetryTime + (long(rand()) * this->ConnectionRetryTime / 100000);
 				wchar_t TimeStr[10];
 
-				//this->Notify(wstring(L"Try to Connect to Server After ") + _itow(WaitTime, TimeStr, 10) + L"ms", etDebug);
+				if(TCPConnection::Debug) 
+				{
+					this->Notify(wstring(L"Try to Connect to Server After ") + _itow(WaitTime, TimeStr, 10) + L"ms", etDebug);
+				}
+
 				Sleep(WaitTime);
 
 				DESTROY(this->Socket); // Renew Socket Object
@@ -252,7 +262,7 @@ namespace GLEO
 					this->Connect(this->PeerIP, this->PeerPort);
 					this->DoConnected(*this);
 
-					this->DoNotify(EventType::etDebug, L"Connected to %s:%d", (~this->PeerIP).c_str(), this->PeerPort);
+					this->DoNotify(EventType::etMessage, L"Connected to %s:%d", (~this->PeerIP).c_str(), this->PeerPort);
 				}
 			}
 			catch(WinSocketException& ex)

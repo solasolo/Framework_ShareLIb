@@ -80,26 +80,45 @@ namespace GLEO.MES.Network
 
             int bufSize = buf.GetSize();
 
-            if (bufSize > 8)
+            while (buf.GetSize() > 0 && buf.ReadByte(0) != STX)
             {
-                while (buf.GetSize() > 0 && buf.ReadByte(0) != STX)
+                buf.PickData(1);//删除无效数据
+            }
+
+            if (bufSize >= 6)
+            {
+                if (buf.ReadByte(0) == STX)  // Meet Head
                 {
-                    buf.PickData(1);//删除无效数据
-                }
+                    int telSize = buf.ReadShort(1);   // 2byte Len
+                    if (telSize >= 4 && bufSize >= telSize + 2)
+                    {
+                        if (buf.ReadByte(telSize + 1) == ETX)
+                        {
+                            short cmd = buf.ReadShort(3);  // 2byte Cmd
+                            msgEntity.Code = cmd;
 
-                if (buf.ReadByte(0) == STX && bufSize > 8)
-                {
-                    int telSize = buf.ReadShort(1);   // 2byte
-                    short cmd = buf.ReadShort(3);  // 2byte
+                            buf.PickData(5);        // 删除cmd及之前的字节 1 + 2 + 2
 
-                    buf.PickData(5);		// 删除cmd及之前的字节1+2+2
 
-                    msgEntity.Code = cmd;
-                    msgEntity.Data = new byte[telSize - 4];
+                            if (telSize > 4)
+                            {
+                                msgEntity.Data = new byte[telSize - 4];
 
-                    buf.PickData(msgEntity.Data, telSize - 4);
+                                buf.PickData(msgEntity.Data, telSize - 4);
+                            }
+                            else
+                            {
+                                msgEntity.Data = null;
+                            }
 
-                    result = true;
+                            buf.PickData(1); // Remove ETX
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        buf.PickData(1); // Remove STX
+                    }
                 }
             }
 

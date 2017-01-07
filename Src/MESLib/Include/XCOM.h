@@ -42,7 +42,6 @@ private:
 	};
 
 	wstring Name;
-	BaseEventLogger* TeleLogger;
 
 private:
 	bool Quiting;
@@ -72,14 +71,16 @@ private:
 	void Reset();
 	void InitSocket();
 	void ClearSocket();
+	void ResetHeartbeat();
 
 	void SendHeartbeat();
 	void SendHeartbeatACK(TCPConnection& conn);
 
-	void SendNotify(wstring& msg, EventType type = etMessage);
-
 	void SendACK(TCPConnection& conn, string& telegram);
 	bool WaitACK();
+
+	void SendNotify(wstring& msg, EventType type = etMessage);
+	void MessageLog(char* fmt, ...);
 
 protected:
 	string ServerIP; 
@@ -89,9 +90,10 @@ protected:
 
 	bool EnableSendQueue;
 	bool AutoACK;
+	bool HeartBeatACK;
+	bool SwapHearChannel;
 	bool RemoteLive;
 	bool AllowRecCallBack;
-	bool ReplyHeartBeat;
 	bool CheckHeartBeat;
 
 	int ReConnectTime;
@@ -103,11 +105,14 @@ protected:
 	string LastSendMsgID;
 	BaseXCOMCodec* Codec;
 
+	BaseEventLogger* TeleLogger;
+
 	bool InnerSend(string& MessageID, string& telegram);
 	void DoDataReceive(string& MessageID, string& DataBlock);
 
 	virtual void CreateLogger();
 	virtual bool CheckACK(string& telegram, string& MessageID, string& DataBlock);
+	virtual void RecordTelegram(string& msg);
 
 	virtual void OnReceived(TCPConnection& conn);
 	virtual void OnConnected(TCPConnection& conn);

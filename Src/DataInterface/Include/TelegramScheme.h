@@ -16,6 +16,8 @@ using namespace MSXML2;
 
 struct TelegramDef
 {
+	int Length;
+
 	vector<FieldDef> FieldDefs;
 	map< string, vector<FieldDef> > RepeatParts;
 };
@@ -33,6 +35,9 @@ namespace MSXML2
 
 	public:
 		bool IsBig;
+		bool IsFix;
+		bool PaddingLeft;
+
 		TelegramScheme(wstring& file_name);
 
 		TelegramDef& GetTelgram(string tel_name);

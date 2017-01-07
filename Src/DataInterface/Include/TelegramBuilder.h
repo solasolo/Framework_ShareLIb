@@ -8,6 +8,35 @@
 
 using namespace MSXML2;
 
+class BaseTelegramItemError : public Exception
+{
+protected:
+	wstring ItemName;
+
+public:
+	BaseTelegramItemError(string item, bool decode);
+
+	BaseTelegramItemError& operator =(const BaseTelegramItemError& ex) throw();
+};
+
+class TelegramItemSizeError : public BaseTelegramItemError
+{
+protected:
+	virtual wstring GetErrorDescription();
+
+public:
+	TelegramItemSizeError(string item, bool decode);
+};
+
+class TelegramItemFormatError : public BaseTelegramItemError
+{
+protected:
+	virtual wstring GetErrorDescription();
+
+public:
+	TelegramItemFormatError(string item, bool decode);
+};
+
 class ITelegramBuilder
 {
 public:
@@ -30,6 +59,7 @@ public:
 class __declspec(dllexport) TextTelegramBuilder : public BaseTelegramBuilder, public ITelegramBuilder
 {
 private:
+	bool IsFix;
 	char BlankChar;
 
 protected:
@@ -77,7 +107,7 @@ public:
 class __declspec(dllexport) BinaryTelegramBuilder : public BaseTelegramBuilder, public ITelegramBuilder
 {
 private:
-	bool isBig;
+	bool IsBig;
 
 	void EncodeItem(BinaryEncoder& encoder, FieldDef& item, CommonData2& values,string& tel_name);
 	void DecodeItem(BinaryDecoder& decoder, FieldDef& item, CommonData2& values,string& tel_name);

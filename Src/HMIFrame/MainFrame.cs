@@ -538,7 +538,7 @@ namespace PictureLib
             }
 
             lbAlarm.ForeColor = c;
-            lbAlarm.Text = msg;
+            lbAlarm.Text = String.Format("{0} {1}", DateTime.Now.ToString("HH:mm:ss"), msg);
         }
 
         void ShowException(Exception ex)
