@@ -113,7 +113,6 @@ protected:
 	virtual void CreateLogger();
 	virtual bool CheckACK(bool ACK, string& telegram, string& MessageID, string& DataBlock);
 	virtual void RecordTelegram(string& msg);
-	virtual void RecordTelegram(string& msg);
 
 	virtual void OnReceived(TCPConnection& conn);
 	virtual void OnConnected(TCPConnection& conn);
