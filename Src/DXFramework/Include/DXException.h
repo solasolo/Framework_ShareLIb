@@ -17,8 +17,5 @@ namespace GLEO
 
 		static void Check(HRESULT hr, string place);
 		static void Check(HRESULT hr, wstring place);
-
-	protected:
-		virtual wstring GetErrorDescription();
 	};
 }
