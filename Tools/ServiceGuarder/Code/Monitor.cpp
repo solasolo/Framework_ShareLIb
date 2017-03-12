@@ -26,7 +26,7 @@ void MonitorThread::Check(ServiceManager* service)
 	{
 		service->Start();
 
-		Logger->Log(EventType::etMessage, service->getName() + L" Restarted!");
+		this->Logger->Log(EventType::etMessage, service->getName() + L" Restarted");
 	}
 }
 
