@@ -155,6 +155,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalDependencies>Advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -200,7 +201,6 @@
     <ClInclude Include="include\SimpleTask.h" />
     <ClInclude Include="include\SmartPointer.h" />
     <ClInclude Include="include\std_unicode.h" />
-    <ClInclude Include="nonvvl.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="include\Synchronization.h" />
     <ClInclude Include="include\ThreadLogger.h" />

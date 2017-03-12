@@ -3,7 +3,6 @@
 #include <d3d11.h>
 #include <d3dcommon.h>
 #include <d3dcompiler.h>
-#include <D3DX10Math.h>
 
 #include "SmartPointer.h"
 #include "DXException.h"

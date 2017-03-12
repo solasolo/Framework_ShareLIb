@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "DXException.h"
-#include <DxErr.h>
+//#include <DxErr.h>
 
 namespace GLEO
 {
@@ -35,14 +35,5 @@ namespace GLEO
 	void DXException::Check(HRESULT hr, wstring place)
 	{
 		if(hr != 0) throw DXException(hr, place);
-	}
-
-	wstring DXException::GetErrorDescription()
-	{
-		wstring ErrString;
-
-		ErrString = DXGetErrorDescription(this->Code);
-
-		return ErrString;
 	}
 }
