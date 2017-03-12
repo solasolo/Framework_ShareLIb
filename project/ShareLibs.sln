@@ -101,10 +101,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXAudioFramework", "..\Src\DXFramework\DXAudioFramework.vcxproj", "{367E9652-53AB-498D-B474-616DBB121A98}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -319,6 +315,7 @@ Global
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.Release|Win32.ActiveCfg = Release|Win32
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.Release|Win32.Build.0 = Release|Win32
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.Release|x64.ActiveCfg = Release|Win32
+		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.Release|x64.Build.0 = Release|Win32
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.XP-Debug|Any CPU.ActiveCfg = XP-Debug|Win32
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.XP-Debug|Any CPU.Build.0 = XP-Debug|Win32
 		{E2F4329E-2E2F-4E3C-B9E2-FBDC5BB52D0D}.XP-Debug|Mixed Platforms.ActiveCfg = XP-Debug|Win32
@@ -373,6 +370,7 @@ Global
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release|Win32.ActiveCfg = Release|Win32
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release|Win32.Build.0 = Release|Win32
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release|x64.ActiveCfg = Release|Win32
+		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.Release|x64.Build.0 = Release|Win32
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.XP-Debug|Any CPU.ActiveCfg = XP-Debug|Win32
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.XP-Debug|Any CPU.Build.0 = XP-Debug|Win32
 		{E5AB65D9-6440-4097-81F5-301C6C6ED8E0}.XP-Debug|Mixed Platforms.ActiveCfg = XP-Debug|Win32
@@ -1211,6 +1209,7 @@ Global
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.Release|Win32.ActiveCfg = Release|Any CPU
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.Release|Win32.Build.0 = Release|Any CPU
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{8896B405-1F5A-4179-9264-D522D05E49B5}.Release|x64.Build.0 = Release|Any CPU
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.XP-Debug|Any CPU.ActiveCfg = XP-Debug|Any CPU
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.XP-Debug|Any CPU.Build.0 = XP-Debug|Any CPU
 		{8896B405-1F5A-4179-9264-D522D05E49B5}.XP-Debug|Mixed Platforms.ActiveCfg = XP-Debug|Any CPU
@@ -1403,18 +1402,22 @@ Global
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release|Win32.Build.0 = Release|Win32
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release|x64.ActiveCfg = Release|x64
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.Release|x64.Build.0 = Release|x64
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Any CPU.ActiveCfg = XP-Debug|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Any CPU.Build.0 = XP-Debug|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Mixed Platforms.ActiveCfg = XP-Debug|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Mixed Platforms.Build.0 = XP-Debug|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Win32.ActiveCfg = XP-Debug|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|x64.ActiveCfg = XP-Debug|x64
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Any CPU.ActiveCfg = XP-Release|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Any CPU.Build.0 = XP-Release|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Mixed Platforms.ActiveCfg = XP-Release|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Mixed Platforms.Build.0 = XP-Release|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Win32.ActiveCfg = XP-Release|Win32
-		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|x64.ActiveCfg = XP-Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Any CPU.ActiveCfg = Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Any CPU.Build.0 = Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Win32.ActiveCfg = Debug|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|Win32.Build.0 = Debug|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|x64.ActiveCfg = Debug|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Debug|x64.Build.0 = Debug|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Any CPU.ActiveCfg = Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Any CPU.Build.0 = Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Mixed Platforms.Build.0 = Release|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Win32.ActiveCfg = Release|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|Win32.Build.0 = Release|Win32
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|x64.ActiveCfg = Release|x64
+		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB}.XP-Release|x64.Build.0 = Release|x64
 		{367E9652-53AB-498D-B474-616DBB121A98}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{367E9652-53AB-498D-B474-616DBB121A98}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{367E9652-53AB-498D-B474-616DBB121A98}.Debug|Mixed Platforms.Build.0 = Debug|Win32
@@ -1468,6 +1471,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		Association = ; :1-2005 R2; ADOComponents\ADOComponents.vcproj; ; ADOComponents; COMMInterface\COMMInterface.vcproj; ; COMMInterface; COMMInterface\Test\IPCapture\IPCapture.vcproj; ; COMMInterface\Test\IPCapture; GLEOCommon\GLEOCommon.vcproj; ; GLEOCommon; ShareLibs.sln; dev.gleosoft.com:49201; ShareLibs; ShareLibs; ShareLibs\C++\; ; SmartComponents\SmartComponents.vcproj; ; SmartComponents; XMLComponents\XMLComponents.vcproj; ; XMLComponents; 
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 	GlobalSection(Borland Source Code Provider) = preSolution
 		IsAssociated = True

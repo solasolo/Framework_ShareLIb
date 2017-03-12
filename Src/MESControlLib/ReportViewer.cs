@@ -2,15 +2,11 @@
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-using Microsoft.Reporting.WinForms;
-using System.Text;
-using System.ComponentModel;
-using Microsoft.Reporting.WinForms;
-using System.Drawing;
 using fyiReporting.RdlViewer;
 using System.Drawing.Printing;
 using System.Collections.Generic;
 using fyiReporting.RDL;
+using Microsoft.Reporting.WinForms;
 
 namespace GLEO.MES.UI
 {
