@@ -223,6 +223,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalOptions>/wd4430 %(AdditionalOptions)</AdditionalOptions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)DataInterface.lib</OutputFile>
@@ -235,6 +236,9 @@
       <SubSystem>NotSet</SubSystem>
       <AdditionalDependencies>GLEOCommon.lib;SmartComponents.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|Win32'">
     <ClCompile>

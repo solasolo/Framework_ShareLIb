@@ -98,6 +98,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.;include;..\COMMInterface\include;..\XMLComponents\include;..\DataInterface\include;..\GLEOCommon\include;..\SmartComponents\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>Async</ExceptionHandling>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -106,6 +107,9 @@
       <AdditionalOptions>COMMInterface.lib SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>..\..\Bin;$(SHARELIB_DIR)\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|Win32'">
     <ClCompile>
