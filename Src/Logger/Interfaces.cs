@@ -27,7 +27,7 @@ namespace GLEO.OA.System
 
         public override string ToString()
         {
-            return String.Format("{1:HH:MM:ss.fff} [{0}] [{2}] {3}", this.Type.ToString(), this.Time, this.ModuleName, this.Message);
+            return String.Format("{1:HH:mm:ss.fff} [{0}] [{2}] {3}", this.Type.ToString(), this.Time, this.ModuleName, this.Message);
         }
     }
 

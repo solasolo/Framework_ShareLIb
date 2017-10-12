@@ -1,13 +1,6 @@
 using System;
-using System.Data;
-using System.Data.SqlClient;
-using Microsoft.Win32;
-using System.Data.OleDb;
 using System.Data.Common;
 using FirebirdSql.Data.FirebirdClient;
-
-using GLEO.DBUtility;
-using System.Collections.Generic;
 
 namespace GLEO.DBUtility
 {
