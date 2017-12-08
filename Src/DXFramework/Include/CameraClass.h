@@ -2,7 +2,10 @@
 
 #include <d3d11.h>
 #include <d3dx10math.h>
+
+#ifdef _WIN32_WINNT_WIN10
 #include <DirectXMath.h>
+#endif
 
 #include "GraphicBase.h"
 

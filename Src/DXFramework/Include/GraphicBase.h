@@ -3,7 +3,10 @@
 #include <d3d11.h>
 #include <d3dcommon.h>
 #include <D3DX10Math.h>
+
+#ifdef _WIN32_WINNT_WIN10
 #include <DirectXMath.h>
+#endif
 
 using namespace DirectX;
 
