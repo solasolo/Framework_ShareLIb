@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E378B606-E0ED-49A6-9623-D99FEA6105C0}"
 EndProject
@@ -578,22 +578,22 @@ Global
 		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.Release|Win32.Build.0 = Release|Any CPU
 		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.Release|x64.ActiveCfg = Release|x64
 		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.Release|x64.Build.0 = Release|x64
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Any CPU.ActiveCfg = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Any CPU.Build.0 = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Mixed Platforms.ActiveCfg = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Mixed Platforms.Build.0 = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Win32.ActiveCfg = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Win32.Build.0 = XP-Debug|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|x64.ActiveCfg = XP-Debug|x64
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|x64.Build.0 = XP-Debug|x64
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Any CPU.ActiveCfg = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Any CPU.Build.0 = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Mixed Platforms.ActiveCfg = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Mixed Platforms.Build.0 = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Win32.ActiveCfg = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Win32.Build.0 = XP-Release|Any CPU
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|x64.ActiveCfg = XP-Release|x64
-		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|x64.Build.0 = XP-Release|x64
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Win32.ActiveCfg = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|Win32.Build.0 = Debug|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|x64.ActiveCfg = Debug|x64
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Debug|x64.Build.0 = Debug|x64
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Any CPU.Build.0 = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Win32.ActiveCfg = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|Win32.Build.0 = Release|Any CPU
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|x64.ActiveCfg = Release|x64
+		{72E18481-9A7C-4EA0-8414-B8A5953686D7}.XP-Release|x64.Build.0 = Release|x64
 		{AF6731FA-82E9-4D35-9A7E-4ECA88EBE7B8}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{AF6731FA-82E9-4D35-9A7E-4ECA88EBE7B8}.Debug|Any CPU.Build.0 = Debug|Win32
 		{AF6731FA-82E9-4D35-9A7E-4ECA88EBE7B8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
@@ -1500,8 +1500,8 @@ Global
 		{38694ADD-9F0E-40B7-BF7B-9C1D4F769FEB} = {DC0B1C93-0E5F-461B-A1D9-FBA585A6469E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Association = ; :1-2005 R2; ADOComponents\ADOComponents.vcproj; ; ADOComponents; COMMInterface\COMMInterface.vcproj; ; COMMInterface; COMMInterface\Test\IPCapture\IPCapture.vcproj; ; COMMInterface\Test\IPCapture; GLEOCommon\GLEOCommon.vcproj; ; GLEOCommon; ShareLibs.sln; dev.gleosoft.com:49201; ShareLibs; ShareLibs; ShareLibs\C++\; ; SmartComponents\SmartComponents.vcproj; ; SmartComponents; XMLComponents\XMLComponents.vcproj; ; XMLComponents; 
 		SolutionGuid = {33213B00-5228-4FD4-9E13-D7F826A5634B}
+		Association = ; :1-2005 R2; ADOComponents\ADOComponents.vcproj; ; ADOComponents; COMMInterface\COMMInterface.vcproj; ; COMMInterface; COMMInterface\Test\IPCapture\IPCapture.vcproj; ; COMMInterface\Test\IPCapture; GLEOCommon\GLEOCommon.vcproj; ; GLEOCommon; ShareLibs.sln; dev.gleosoft.com:49201; ShareLibs; ShareLibs; ShareLibs\C++\; ; SmartComponents\SmartComponents.vcproj; ; SmartComponents; XMLComponents\XMLComponents.vcproj; ; XMLComponents; 
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
