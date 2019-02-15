@@ -1,9 +1,9 @@
 .svn
 __history
 release
-XP-Release
+release64
 bin
-XP-bin
+bin64
 obj
 debug
 lib

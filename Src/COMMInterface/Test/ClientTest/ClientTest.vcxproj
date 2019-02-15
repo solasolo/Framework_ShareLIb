@@ -57,28 +57,28 @@
     <SccLocalPath>.</SccLocalPath>
     <SccProvider>MSSCCI:StarTeam</SccProvider>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141_xp</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110_xp</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110_xp</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-3.5|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -93,22 +93,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141_xp</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141_xp</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-3.5|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -164,20 +164,24 @@
     <_ProjectFileVersion>11.0.51106.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\..\bin\</OutDir>
-    <IntDir>..\..\..\..\obj\$(ProjectName)</IntDir>
+    <OutDir>..\..\..\,,\bin</OutDir>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|Win32'">
-    <OutDir>..\..\..\..\bin\</OutDir>
-    <IntDir>..\..\..\..\obj\$(ProjectName)</IntDir>
+    <OutDir>..\..\..\,,\bin</OutDir>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
+    <OutDir>..\..\..\..\bin64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
+    <OutDir>..\..\..\..\bin64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-3.5|Win32'">
     <OutDir>..\..\..\..\bin\</OutDir>
@@ -188,20 +192,24 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\..\bin\</OutDir>
-    <IntDir>..\..\..\..\obj\ClientTest\</IntDir>
+    <OutDir>..\..\..\,,\bin</OutDir>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|Win32'">
-    <OutDir>..\..\..\..\bin\</OutDir>
-    <IntDir>..\..\..\..\obj\ClientTest\</IntDir>
+    <OutDir>..\..\..\,,\bin</OutDir>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
+    <OutDir>..\..\..\..\bin64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
+    <OutDir>..\..\..\..\bin64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-3.5|Win32'">
     <OutDir>..\..\..\..\bin\</OutDir>
@@ -223,6 +231,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
@@ -246,6 +255,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
@@ -268,11 +278,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\bin64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)ClientTest.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -289,11 +300,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\bin64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)ClientTest.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -352,6 +364,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
@@ -361,7 +374,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\..\..\release;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|Win32'">
@@ -373,6 +386,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
@@ -382,7 +396,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\..\..\release;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -394,6 +408,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
@@ -402,7 +417,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\..\..\release;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\release64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'">
@@ -414,6 +429,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)ClientTest.exe</OutputFile>
@@ -422,7 +438,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <AdditionalOptions>GLEOCommon.lib COMMInterface.lib Ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\..\..\release;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\release64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-3.5|Win32'">

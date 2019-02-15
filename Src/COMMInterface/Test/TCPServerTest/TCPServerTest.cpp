@@ -44,16 +44,16 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	char buf[20];
 
-	string ip = "127.0.0.1";
+	wstring ip = L"127.0.0.1";
 	int port = 4444;
 
 	if(argc >=3)
 	{
 		ip = argv[1];
-		port = atoi(argv[2]);
+		port = _wtoi(argv[2]);
 	}
 
-	TCPServer  Server (ip, port);
+	TCPServer  Server (~ip, port);
 	cout << "server Socket has created!" << endl;
 
 	TCPCB cb;
