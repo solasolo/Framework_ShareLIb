@@ -154,28 +154,28 @@
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86;</LibraryPath>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\,,\bin</OutDir>
+    <OutDir>..\..\..\,,\release</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86;</LibraryPath>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\..\bin64</OutDir>
+    <OutDir>..\..\..\..\release64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86;</LibraryPath>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\,,\bin</OutDir>
+    <OutDir>..\..\..\,,\release</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);;$(DXSDK_DIR)Include</IncludePath>
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86;</LibraryPath>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\..\bin64</OutDir>
+    <OutDir>..\..\..\..\release64</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

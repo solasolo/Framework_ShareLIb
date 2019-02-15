@@ -192,24 +192,24 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\,,\bin</OutDir>
+    <OutDir>..\..\..\,,\release</OutDir>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|Win32'">
-    <OutDir>..\..\..\,,\bin</OutDir>
+    <OutDir>..\..\..\,,\release</OutDir>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\..\bin64</OutDir>
+    <OutDir>..\..\..\..\release64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>..\..\..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <OutDir>..\..\..\..\bin64</OutDir>
+    <OutDir>..\..\..\..\release64</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-3.5|Win32'">
     <OutDir>..\..\..\..\bin\</OutDir>

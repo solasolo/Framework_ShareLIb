@@ -373,7 +373,7 @@ SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
     <Link>
       <AdditionalOptions>GLEOCommon.lib
 SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -397,7 +397,7 @@ SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
     <Link>
       <AdditionalOptions>GLEOCommon.lib
 SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -421,7 +421,7 @@ SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
     <Link>
       <AdditionalOptions>GLEOCommon.lib
 SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\bin64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\release64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -443,7 +443,7 @@ SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
     <Link>
       <AdditionalOptions>GLEOCommon.lib
 SmartComponents.lib %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>..\..\bin64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\release64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
