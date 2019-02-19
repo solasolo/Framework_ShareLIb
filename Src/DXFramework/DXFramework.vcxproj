@@ -133,16 +133,16 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib</ReferencePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x86</LibraryPath>
     <ExecutablePath>.;$(ExecutablePath);$(dx11_bin)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib</ReferencePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x64</LibraryPath>
     <ExecutablePath>.;$(ExecutablePath);$(dx11_bin)</ExecutablePath>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin64</OutDir>
@@ -151,16 +151,16 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib</ReferencePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x86</LibraryPath>
     <ExecutablePath>.;$(ExecutablePath);$(dx11_bin)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Debug|x64'">
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib</ReferencePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x64</LibraryPath>
     <ExecutablePath>.;$(ExecutablePath);$(dx11_bin)</ExecutablePath>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\bin64</OutDir>
@@ -170,14 +170,14 @@
     <OutDir>..\..\release</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib;$(DXSDK_DIR)Lib\x86</ReferencePath>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib;$(DXSDK_DIR)Lib\x86</ReferencePath>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x64</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\release64</OutDir>
   </PropertyGroup>
@@ -186,14 +186,14 @@
     <OutDir>..\..\release</OutDir>
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib;$(DXSDK_DIR)Lib\x86</ReferencePath>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x86</LibraryPath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='XP-Release|x64'">
     <IntDir>..\..\obj\$(ProjectName)\$(Configuration)\$(Platform)</IntDir>
     <ReferencePath>$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib;$(DXSDK_DIR)Lib\x86</ReferencePath>
-    <IncludePath>$(IncludePath);$(DXSDK_DIR)\Include$(dx11_inc);;$(DXSDK_DIR)include;$(OPENCV_DIR)\include</IncludePath>
-    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)Lib\x64</LibraryPath>
+    <IncludePath>$(IncludePath);$(DXSDK_DIR)\include;$(OPENCV_DIR)\include</IncludePath>
+    <LibraryPath>$(LibraryPath);$(DXSDK_DIR)\Lib\x64</LibraryPath>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>..\..\release64</OutDir>
   </PropertyGroup>
