@@ -1,4 +1,5 @@
 //---------------------------------------------------------------------------
+#include "stdafx.h"
 
 #include "XMLMultiLanguage.h"
 
@@ -47,11 +48,11 @@ namespace Win32Lib
 	{
 		MSXML2::IXMLDOMDocumentPtr Doc;
 		HRESULT hr = Doc.CreateInstance(__uuidof(MSXML2::DOMDocument));
-		WinException::COMCheck(hr, _T("Create XML Document"));
+		WinException::COMCheck(hr, L"Create XML Document");
 
 		if(!Doc->load( _variant_t(DocPath.c_str()) ))
 		{
-			throw XMLParseException(_T("Load Lanuage File"), Doc);
+			throw XMLParseException(L"Load Lanuage File", Doc);
 		}
 
 		MSXML2::IXMLDOMElementPtr Root;

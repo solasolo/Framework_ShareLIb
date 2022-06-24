@@ -10,10 +10,10 @@
 
 using namespace std;
 
-namespace
+namespace GLEO
 {
-	const int EVENT_LOGGER_BUFFER_SIZE = 1023;
-	__declspec(thread) wchar_t EventLoggerBuffer[EVENT_LOGGER_BUFFER_SIZE + 1];
+	// const int EVENT_LOGGER_BUFFER_SIZE = 1023;
+	// __declspec(thread) wchar_t EventLoggerBuffer[EVENT_LOGGER_BUFFER_SIZE + 1];
 }
 
 namespace GLEO
@@ -38,33 +38,19 @@ namespace GLEO
 		return CallBackHandle;
 	}
 
-	void EventSource::DoCallBack(TString& msg, EventType type)
+	void EventSource::DoCallBack(const wstring& msg, EventType type)
 	{
 		IEventCallBack* Handle = getHandle();//(EventCallBack*)
-		if(Handle)
+		if (Handle)
 		{
 			Handle->NotifyFunc(this, msg, type);
 		}
-	}
-
-	void EventSource::DoNotify(EventType type, wchar_t* fmt, ...)
-	{
-		//wchar_t* buf = EventLoggerBuffer;
-		wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
-
-		va_list args;
-		va_start(args, fmt);
-		
-		_vsnwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args); 
-
-		wstring Message = buf;
-		this->DoCallBack(Message, type);
 	}
 }
 
 namespace GLEO
 {
-	wchar_t* BaseEventLogger::EventTypeString[] =
+	wchar_t const* BaseEventLogger::EventTypeString[] =
 	{
 		L"-WDG",
 		L"-RCD",
@@ -111,9 +97,9 @@ namespace GLEO
 		return buf;
 	}
 
-	wchar_t* BaseEventLogger::getTypeString(EventType Type)
+	const wchar_t* BaseEventLogger::getTypeString(EventType Type)
 	{
-		wchar_t* Result;
+		const wchar_t* Result;
 		
 		if(Type < EventType_Count)
 		{
@@ -133,20 +119,6 @@ namespace GLEO
 		//wstring Message = BaseEventLogger::Buffer;
 
 		//this->Log(Type, Message);
-	}
-
-	void BaseEventLogger::Log(int Type, wchar_t* fmt, ...)
-	{
-		//wchar_t* buf = EventLoggerBuffer;
-		wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
-
-		va_list args;
-		va_start(args, fmt);
-		
-		_vsnwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args); 
-
-		wstring Message = buf;
-		this->Log(Type, Message);
 	}
 
 	void BaseEventLogger::Log(int Type, string Message) throw()

@@ -34,7 +34,7 @@ private:
 
 protected:
 	virtual void OnReceived(TCPConnection& conn);
-	virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+	virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 
 public:
 	Monitor(string ip, int port);
@@ -49,8 +49,6 @@ Monitor::Monitor(string ip, int port)
 
 	this->Client = new TCPClient(ip, port);
 	this->Client->SetCallBack(this);
-
-	wcout.imbue(locale("chs"));
 }
 
 void Monitor::Check()
@@ -90,13 +88,16 @@ void Monitor::OnReceived(TCPConnection& conn)
 	this->InClear = false;
 }
 
-void Monitor::NotifyFunc(void* sender, wstring& msg, EventType type)
+void Monitor::NotifyFunc(void* sender, const wstring& msg, EventType type)
 {
 	WriteConsole(msg);
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	setlocale(LC_ALL, "chs");
+	wcout.imbue(locale("chs"));
+
 	string ip = "127.0.0.1";
 	int port = 4444;
 
@@ -125,7 +126,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			}
 
 			if(k == 27) break;
-			if(k = 'c') 
+			if(k == 'c') 
 
 			Sleep(100);
 

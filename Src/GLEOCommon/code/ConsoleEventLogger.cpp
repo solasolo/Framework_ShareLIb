@@ -33,8 +33,9 @@ namespace GLEO
 
 		//setlocale( LC_CTYPE, "" );
 		//setlocale(LC_ALL, "chinese");
-		setlocale(LC_ALL, "zh-cn");
-
+		setlocale(LC_ALL, "chs");
+		wcout.imbue(locale("chs"));
+		
 		//SetConsoleTextAttribute(hOut, FOREGROUND_GREEN);
 		switch(Type)
 		{

@@ -3,8 +3,9 @@
 
 #include <exception>
 #include <string>
+#include <comdef.h>
 
-#include "CommonFuncs.h"
+//#include "CommonFuncs.h"
 
 using namespace std;
 

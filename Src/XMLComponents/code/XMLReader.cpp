@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #include "XMLReader.h"
 
 using namespace GLEO;
@@ -123,7 +125,9 @@ namespace GLEO
 	{
 		wstring Result;
 
-		MSXML2::IXMLDOMAttributePtr Attr = node->attributes->getNamedItem(bstr_t(name.c_str()));
+		MSXML2::IXMLDOMAttributePtr Attr = NULL;
+
+		Attr = node->attributes->getNamedItem(bstr_t(name.c_str()));
 		if(Attr)
 		{
 			Result = (wchar_t*)(bstr_t)Attr->value;
@@ -131,6 +135,21 @@ namespace GLEO
 		else
 		{
 			throw Exception(wstring(L"NO XML Attribute:") + name, L"Get XML Attribute");
+		}
+
+		return Result;
+	}
+
+	wstring XMLReader::ReadAttributeString(MSXML2::IXMLDOMNodePtr node, wstring name)
+	{
+		wstring Result;
+
+		MSXML2::IXMLDOMAttributePtr Attr = NULL;
+
+		Attr = node->attributes->getNamedItem(bstr_t(name.c_str()));
+		if (Attr)
+		{
+			Result = (wchar_t*)(bstr_t)Attr->value;
 		}
 
 		return Result;

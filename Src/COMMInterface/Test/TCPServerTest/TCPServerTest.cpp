@@ -18,10 +18,10 @@ public:
 	void NotifyFunc(string& msg, EventType type);
 
 	virtual void OnReceived(TCPConnection& conn);
-	virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+	virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 };
 
-void TCPCB::NotifyFunc(void* sender, wstring& msg, EventType type)
+void TCPCB::NotifyFunc(void* sender, const wstring& msg, EventType type)
 {
 	wcout<<msg<<endl;
 }

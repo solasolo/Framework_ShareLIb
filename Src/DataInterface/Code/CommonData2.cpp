@@ -359,14 +359,18 @@ void CommonData2::setData(string name, variant_t& value)
 		setInt(name, value);
 		break;
 
+	case VT_LPWSTR:
+		wstr = (wchar_t*)value.ulVal;
+		setString(name, ~wstring(wstr));
+		break;
+
 	case VT_LPSTR:
 		str = (char*)value.ulVal;
 		setString(name, str);
 		break;
 
 	case VT_BSTR:
-	case VT_LPWSTR:
-		wstr = (wchar_t*)value.ulVal;
+		wstr = (wchar_t*)value.bstrVal;
 		setString(name, ~wstring(wstr));
 		//setString(name, (_com_util::ConvertBSTRToString((BSTR)value.ulVal)) );
 		break;

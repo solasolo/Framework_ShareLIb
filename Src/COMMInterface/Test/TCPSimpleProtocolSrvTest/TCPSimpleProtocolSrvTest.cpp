@@ -16,7 +16,7 @@ class TestServer : public TCPServerSimpleProtocol
 protected:
 	virtual void ProcessCommand(TCPConnection& conn, short cmd, BinaryDecoder& decoder);
 	virtual void ProcessConnect(TCPConnection& conn);
-	virtual void ProcessNotice(EventType type, wstring& msg);
+	virtual void ProcessNotice(EventType type, const wstring& msg);
 
 public:
 	TestServer(string ip, int port);
@@ -44,7 +44,7 @@ void TestServer::ProcessConnect(TCPConnection& conn)
 {
 }
 
-void TestServer::ProcessNotice(EventType type, wstring& msg)
+void TestServer::ProcessNotice(EventType type, const wstring& msg)
 {
 	wcout << msg << endl;
 }

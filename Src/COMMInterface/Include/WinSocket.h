@@ -27,7 +27,7 @@ protected:
 public:
 	WinSocketException(BaseSocket& socket, const wchar_t* where);
 
-	wstring GetDescription();
+	wstring GetDescription() throw() override;
 	SOCKET getHandle();
 };
 
@@ -36,7 +36,7 @@ class __declspec(dllexport) WinSocketNoConnection : public WinSocketException
 public:
 	WinSocketNoConnection(BaseSocket& socket, const wchar_t* where);
 
-	wstring GetDescription();
+	wstring GetDescription() throw() override;
 };
 
 class __declspec(dllexport) BaseSocket
@@ -79,11 +79,11 @@ public:
 
 	void Connect(const char* RemoteIP, unsigned int RemotePort);
 	void Listen();
-	bool CanReceive();
+	bool CanReceive(int t = 10);
 
 	void Send(const char* data, unsigned int len);
-	void Send(string& data);
-	int Receive( char* data, unsigned int len);
+	void Send(const string& data);
+	int Receive(char* data, unsigned int len);
 	int Receive(string& data);
 
 private:	

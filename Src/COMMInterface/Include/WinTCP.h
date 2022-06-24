@@ -75,6 +75,7 @@ namespace GLEO
 		~TCPConnection();
 
 		static bool Debug;
+		static void SetDebug(bool enable);
 
 		int GetLocalPort();
 		string GetLocalIP();
@@ -85,7 +86,7 @@ namespace GLEO
 		bool CheckReceiveData();
 
 		StreamBuffer& GetData();
-		void Send(string& msg);
+		void Send(const string& msg);
 
 		virtual void RunTask(); 
 	};
@@ -128,13 +129,13 @@ namespace GLEO
 
 		void OnReceived(TCPConnection& conn);
 		void OnConnected(TCPConnection& conn);
-		void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+		void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 
 		int GetClientsCount();
 		TCPConnection* GetConns();
 
-		void Send(unsigned int i, string msg);
-		void SendAll(string& msg);
+		void Send(unsigned int i, const string& msg);
+		void SendAll(const string& msg);
 
 		void ClearConn();
 	};
@@ -147,7 +148,7 @@ namespace GLEO
 	protected:
 		virtual void ProcessCommand(TCPConnection& conn, short cmd, BinaryDecoder& decoder) = 0;
 		virtual void ProcessConnect(TCPConnection& conn) = 0;
-		virtual void ProcessNotice(EventType type, wstring& msg) = 0;
+		virtual void ProcessNotice(EventType type, const wstring& msg) = 0;
 	};
 
 	class CommandProcessor : public TCPCallBack
@@ -162,7 +163,7 @@ namespace GLEO
 
 		virtual void OnReceived(TCPConnection& conn);
 		virtual void OnConnected(TCPConnection& conn);
-		virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+		virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 	};
 
 	class __declspec(dllexport) TCPClientSimpleProtocol : public ICommandExtend

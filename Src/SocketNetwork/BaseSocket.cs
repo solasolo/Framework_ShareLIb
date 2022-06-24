@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace GLEO.MES.Network
 {
@@ -24,8 +23,11 @@ namespace GLEO.MES.Network
 
     public class SocketMessageEventArgs : EventArgs
     {
-        public SocketMessageEventArgs()
+        public readonly BaseSocket Socket;
+
+        public SocketMessageEventArgs(BaseSocket socket)
         {
+            this.Socket = socket;
         }
     }
 
@@ -165,7 +167,7 @@ namespace GLEO.MES.Network
 
             this.WatchDogTime = DateTime.Now;
 
-            this.Running = true;
+            this.Running = false;
             this.SendLocker = new Object();
             this.ReceiveThread = new Thread(new ThreadStart(this.ReceiveProc));
         }
@@ -177,6 +179,7 @@ namespace GLEO.MES.Network
 
         public void Start()
         {
+            this.Running = true;
             this.ReceiveThread.Start();
         }
         
@@ -221,7 +224,7 @@ namespace GLEO.MES.Network
         {
             if (this.OnDataReceived != null)
             {
-                this.OnDataReceived(this, new SocketMessageEventArgs());
+                this.OnDataReceived(this, new SocketMessageEventArgs(this));
             }
         }
         
@@ -255,7 +258,7 @@ namespace GLEO.MES.Network
             this.Send(str);
         }
 
-        private void Send(byte[] data)
+        public void Send(byte[] data)
         {
             lock (this.SendLocker)
             {

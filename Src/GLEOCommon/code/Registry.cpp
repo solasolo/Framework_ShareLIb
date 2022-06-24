@@ -9,11 +9,11 @@ Registry::Registry(HKEY key)
 	this->CurrentKey = this->RootKey = key;
 }
 
-void Registry::OpenKey(wstring key)
+void Registry::OpenKey(wstring key, bool readonly)
 {
 	LONG rs;
 
-	rs = RegOpenKeyEx(this->RootKey, key.c_str(), NULL, KEY_WRITE | KEY_READ, &this->CurrentKey);
+	rs = RegOpenKeyEx(this->RootKey, key.c_str(), NULL,  readonly ? KEY_READ : KEY_WRITE | KEY_READ, &this->CurrentKey);
 	WinException::Check(rs, L"Open Registry");
 }
 

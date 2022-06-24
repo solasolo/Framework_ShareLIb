@@ -175,33 +175,31 @@ namespace GLEO.MES.Network
                 int n = 0;
                 int n_len = 0;
 
-                for (int i = 0; i < this.Buffer.Count; i++)
+                while (this.Buffer.Count > 0)
                 {
                     if (len - c == 0)
                     {
                         break;
                     }
 
-                    n = this.Buffer[i].Length;
-                    n_len = n;
-
+                    n = this.Buffer[0].Length;
                     if (len - c < n)
                     {
-                        n = len - c;
-                        n_len -= n;
+                        int start = len - c;
+                        n_len = n - start;
                         //it->erase(0, n);
                         byte[] n_buffer = new byte[n_len];
 
-                        Array.Copy(this.Buffer[i], n, n_buffer, 0, n_len);
+                        Array.Copy(this.Buffer[0], start, n_buffer, 0, n_len);
 
-                        this.Buffer[i] = n_buffer;
+                        this.Buffer[0] = n_buffer;
 
                         break;
                     }
                     else
                     {
                         //it = Buffer.erase(it);
-                        this.Buffer.RemoveAt(i);
+                        this.Buffer.RemoveAt(0);
                     }
 
                     c += n;
@@ -282,24 +280,19 @@ namespace GLEO.MES.Network
         /// 返回一个字节数组
         /// </summary>
         /// <returns></returns>
-        public byte[] BuildData()
+        public byte[] BuildData(int addition, int start)
         {
-            int size = this.GetSize() + 6;//头尾各1  总长2位   电文号2位
+            int size = this.GetSize() + addition;
 
             byte[] msg = new byte[size];
-            byte[] data_Len = BitConverter.GetBytes(size - 2);
-            msg[1] = data_Len[0];
-            msg[2] = data_Len[1];
-            int n = 5;  //电文体起始位置 
 
             List<byte[]>.Enumerator it = this.Buffer.GetEnumerator();
 
             while (it.MoveNext())
             {
-                Array.Copy(it.Current, 0, msg, n, it.Current.Length);
-                n += it.Current.Length;
+                Array.Copy(it.Current, 0, msg, start, it.Current.Length);
+                start += it.Current.Length;
             }
-
 
             this.Buffer.Clear();
 

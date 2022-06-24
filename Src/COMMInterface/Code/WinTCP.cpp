@@ -21,9 +21,15 @@ namespace GLEO
 {
 	bool TCPConnection::Debug = false;
 
+	void TCPConnection::SetDebug(bool enable)
+	{
+		TCPConnection::Debug = enable;
+	}
+
 	TCPConnection::TCPConnection()
 		: SimpleThread(L"Connection", true)
 	{
+		this->SleepTimer = 0;
 		this->Connected = false;
 		this->Socket= new WinSocket();
 		this->Start();
@@ -93,7 +99,7 @@ namespace GLEO
 		return Result;
 	}
 
-	void TCPConnection::Send(string& msg)
+	void TCPConnection::Send(const string& msg)
 	{
 		if(this->Socket)
 		{
@@ -336,7 +342,7 @@ namespace GLEO
 		return (unsigned int) Connections.size();
 	}
 
-	void TCPServer::Send(unsigned int i, string msg)
+	void TCPServer::Send(unsigned int i, const string& msg)
 	{
 		CriticalGuard CG(ClientsGuard);
 
@@ -348,7 +354,7 @@ namespace GLEO
 		CG.Close();
 	}
 
-	void TCPServer::SendAll(string& msg)
+	void TCPServer::SendAll(const string& msg)
 	{
 		CriticalGuard CG(ClientsGuard);
 
@@ -411,7 +417,7 @@ namespace GLEO
 		this->DoConnected(conn);
 	}
 
-	void TCPServer::NotifyFunc(void *sender, wstring &msg, EventType type)
+	void TCPServer::NotifyFunc(void *sender, const wstring &msg, EventType type)
 	{
 		this->DoCallBack(msg, type);
 	}
@@ -486,7 +492,7 @@ namespace GLEO
 		this->Extender->ProcessConnect(conn);
 	}
 
-	void CommandProcessor::NotifyFunc(void* sender, wstring& msg, EventType type)
+	void CommandProcessor::NotifyFunc(void* sender, const wstring& msg, EventType type)
 	{
 		this->Extender->ProcessNotice(type, msg);
 	}

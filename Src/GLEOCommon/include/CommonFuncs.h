@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "BaseException.h"
 #include "std_Unicode.h"
 
 using namespace std;
@@ -201,7 +202,7 @@ namespace GLEO
 	basic_string<_Elem, _Traits, _Ax> Replace(basic_string<_Elem, _Traits, _Ax>& str, basic_string<_Elem, _Traits, _Ax> pattern, basic_string<_Elem, _Traits, _Ax> dstPattern, int count)
 	{
 		basic_string<_Elem, _Traits, _Ax> retStr;
-		basic_string<_Elem, _Traits, _Ax>::size_type pos;
+		typename basic_string<_Elem, _Traits, _Ax>::size_type pos;
 
 		retStr.clear();
 
@@ -238,9 +239,9 @@ namespace GLEO
 	}
 
 	template<typename _Elem, typename _Traits, typename _Ax> 
-	basic_string<_Elem,_Traits,_Ax> Split(vector<basic_string<_Elem,_Traits,_Ax> >& v, basic_string<_Elem, _Traits,_Ax> str, _Elem c)
+	int Split(vector<basic_string<_Elem,_Traits,_Ax> >& v, basic_string<_Elem, _Traits,_Ax> str, _Elem c)
 	{
-		const _Elem s = str.c_str();
+		const _Elem* s = str.c_str();
 
 		v.clear();
 		while (true) 
@@ -261,7 +262,7 @@ namespace GLEO
 
 			if (!*++s) 
 			{
-				v.push_back("");
+				v.push_back(basic_string<_Elem, _Traits, _Ax>());
 				break;
 			}
 		}

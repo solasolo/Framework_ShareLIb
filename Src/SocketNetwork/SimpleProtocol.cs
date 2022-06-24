@@ -4,6 +4,15 @@ using System.Text;
 
 namespace GLEO.MES.Network
 {
+
+    //
+    //  STX
+    //  LEN  Include LEN, CMD, Payload
+    //  CMD
+    //  Payload
+    //  ETX
+    //
+
     public interface IProtocolDecoder
     {
         bool CheckData(StreamBuffer buf, ref MessageEnity msgEntity);
@@ -20,6 +29,10 @@ namespace GLEO.MES.Network
     /// </summary>
     public class SimpleProtocolEncoder
     {
+        const int CMD_SIZE = 2;
+        const int LEN_SIZE = 4;
+        const int HEAD_SIZE = CMD_SIZE + LEN_SIZE;
+
         const char STX = '\x02';
         const char ETX = '\x03';
 
@@ -29,7 +42,7 @@ namespace GLEO.MES.Network
         {
             this.Buffer = new StreamBuffer();
         }
-        
+
         public SimpleProtocolEncoder(StreamBuffer buf)
         {
             this.Buffer = buf;
@@ -50,17 +63,22 @@ namespace GLEO.MES.Network
 
         public byte[] GetData(short ID)
         {
-            byte[] msg = this.Buffer.BuildData();
-            byte[] TelID = BitConverter.GetBytes(ID);
+            byte[] msg = this.Buffer.BuildData(HEAD_SIZE + 2, HEAD_SIZE + 1);
             int size = msg.Length;
 
-            if (size >= 6)
-            {
-                msg[0] = (byte)STX;
-                msg[3] = TelID[0];
-                msg[4] = TelID[1];
-                msg[size - 1] = (byte)ETX;
-            }
+            msg[0] = (byte)STX;
+
+            byte[] data_Len = BitConverter.GetBytes(size - 2);
+            msg[1] = data_Len[0];
+            msg[2] = data_Len[1];
+            msg[3] = data_Len[2];
+            msg[4] = data_Len[3];
+
+            byte[] TelID = BitConverter.GetBytes(ID);
+            msg[LEN_SIZE + 1] = TelID[0];
+            msg[LEN_SIZE + 2] = TelID[1];
+
+            msg[size - 1] = (byte)ETX;
 
             return msg;
         }
@@ -69,58 +87,68 @@ namespace GLEO.MES.Network
     /// <summary>
     /// 
     /// </summary>
-    public class SimpleProtocolDecoder: IProtocolDecoder
+    public class SimpleProtocolDecoder : IProtocolDecoder
     {
+        const int CMD_SIZE = 2;
+        const int LEN_SIZE = 4;
+        const int HEAD_SIZE = CMD_SIZE + LEN_SIZE;
+
         const char STX = '\x02';
         const char ETX = '\x03';
 
         public bool CheckData(StreamBuffer buf, ref MessageEnity msgEntity)
         {
             bool result = false;
+            bool remain = false;
 
-            int bufSize = buf.GetSize();
-
-            while (buf.GetSize() > 0 && buf.ReadByte(0) != STX)
+            do
             {
-                buf.PickData(1);//删除无效数据
-            }
+                int bufSize = buf.GetSize();
 
-            if (bufSize >= 6)
-            {
-                if (buf.ReadByte(0) == STX)  // Meet Head
+                while (buf.GetSize() > 0 && buf.ReadByte(0) != STX)
                 {
-                    int telSize = buf.ReadShort(1);   // 2byte Len
-                    if (telSize >= 4 && bufSize >= telSize + 2)
+                    buf.PickData(1);//删除无效数据
+                }
+
+                if (bufSize >= HEAD_SIZE + 2)
+                {
+                    if (buf.ReadByte(0) == STX)  // Meet Head
                     {
-                        if (buf.ReadByte(telSize + 1) == ETX)
+                        int telSize = buf.ReadInt(1);   // 4 bytes Len
+                        if (telSize >= HEAD_SIZE && bufSize >= telSize + 2)
                         {
-                            short cmd = buf.ReadShort(3);  // 2byte Cmd
-                            msgEntity.Code = cmd;
-
-                            buf.PickData(5);        // 删除cmd及之前的字节 1 + 2 + 2
-
-
-                            if (telSize > 4)
+                            if (buf.ReadByte(telSize + 1) == ETX)
                             {
-                                msgEntity.Data = new byte[telSize - 4];
+                                short cmd = buf.ReadShort(LEN_SIZE + 1);  // 2 bytes Cmd
+                                msgEntity.Code = cmd;
 
-                                buf.PickData(msgEntity.Data, telSize - 4);
+                                buf.PickData(HEAD_SIZE + 1);        // 删除cmd及之前的字节 1 + 2 + 4
+
+
+                                if (telSize > HEAD_SIZE)
+                                {
+                                    msgEntity.Data = new byte[telSize - HEAD_SIZE];
+
+                                    buf.PickData(msgEntity.Data, telSize - HEAD_SIZE);
+                                }
+                                else
+                                {
+                                    msgEntity.Data = null;
+                                }
+
+                                buf.PickData(1); // Remove ETX
+                                result = true;
                             }
                             else
                             {
-                                msgEntity.Data = null;
+                                buf.PickData(1); // Remove STX
+                                remain = true;
                             }
-
-                            buf.PickData(1); // Remove ETX
-                            result = true;
                         }
-                    }
-                    else
-                    {
-                        buf.PickData(1); // Remove STX
                     }
                 }
             }
+            while (!result && remain);
 
             return result;
         }

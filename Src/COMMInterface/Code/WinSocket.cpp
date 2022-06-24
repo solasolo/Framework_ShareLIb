@@ -1,4 +1,5 @@
 #include "WinSocket.h"
+#include "CommonFuncs.h"
 
 //---------------------------------------------------------------------------
 
@@ -88,8 +89,10 @@ void BaseSocket::Cleanup()
 
 void BaseSocket::Bind( char* strIP, unsigned int iPort )
 {	
-	if( strlen( strIP ) == 0 || iPort == 0 )
+	if (strlen(strIP) == 0 || iPort == 0)
+	{
 		throw Exception(L"IP address or port number is not correct!");
+	}
 
 	memset( &m_sockaddr,0, sizeof( m_sockaddr ) );
 	m_sockaddr.sin_family = AF_INET;
@@ -97,7 +100,10 @@ void BaseSocket::Bind( char* strIP, unsigned int iPort )
 	m_sockaddr.sin_port = htons( iPort );
 
 	int ret_code = bind( InnerHandle, (SOCKADDR*)&m_sockaddr, sizeof( m_sockaddr)); 
-	CheckError(L"Socket Bind", ret_code);
+
+	wchar_t tmp[64];
+	swprintf(tmp, 63, L"Socket Bind %s:%d", strIP, iPort);
+	CheckError(tmp, ret_code);
 }
 
 SOCKET BaseSocket::Accept()
@@ -243,14 +249,14 @@ void WinSocket::Send(const char* strData, unsigned int len )
 	CheckError(L"Socket Send", ret_code);
 }
 
-void WinSocket::Send(string& Data )
+void WinSocket::Send(const string& Data )
 {
 	Send(Data.c_str(), Data.length());
 }
 
-bool WinSocket::CanReceive()
+bool WinSocket::CanReceive(int t)
 {
-	TIMEVAL tv = {0, 0};
+	TIMEVAL tv = {0, t * 1000};
 	int ret_code; 
 	fd_set fdr = {1, InnerHandle}; 
 

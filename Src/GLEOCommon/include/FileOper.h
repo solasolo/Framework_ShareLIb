@@ -12,7 +12,7 @@ namespace GLEO
 		struct ErrMap
 		{
 			int No;
-			TChar* Message;
+			const wchar_t* Message;
 		};
 
 		static const ErrMap ErrorTable[];
@@ -34,7 +34,7 @@ namespace GLEO
 		TString FilePath;	
 		FILE * FileHandle;
 
-		static TChar* ModeStr[3];
+		static const wchar_t* ModeStr[3];
 
 		void Open();
 

@@ -1,8 +1,10 @@
+#include "stdafx.h"
+
 #include "XMLException.h"
 
 namespace Win32Lib
 {
-	XMLParseException::XMLParseException(TString place, MSXML2::IXMLDOMDocumentPtr doc)
+	XMLParseException::XMLParseException(const wstring& place, MSXML2::IXMLDOMDocumentPtr doc)
 	{
 		if(doc)
 		{

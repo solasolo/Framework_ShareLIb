@@ -63,14 +63,18 @@ public:
 	void Clean();
 
 	void RawWrite(const void* data, int length);
-	void Write(const char* data, int length);
 	void Write(const string& data);
 	void Write(const string& data, int length);
+	void WritePLCString(const string& data, int length);
+	void WriteString(const char* data, int length);
+	void WriteLongString(const char* data, int length);
+
 	void Write(const char* data);
 	void Write(char data);
 	void Write(int data);
 	void Write(short data);
 	void Write(float data);
+	void Write(const char* data, int length);
 
 	void WriteReverse(int data);
 	void WriteReverse(short data);

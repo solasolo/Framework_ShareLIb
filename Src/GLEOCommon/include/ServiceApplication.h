@@ -19,7 +19,7 @@ namespace GLEO
 		virtual void StartProcess() = 0;
 		virtual void StopProcess() = 0;
 		
-		virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+		virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 		
 		virtual BaseEventLogger* BuildLogger();
 
@@ -50,7 +50,7 @@ namespace GLEO
 		
 		int Run(int argc, wchar_t* argv[]);
 
-		virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage);
+		virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage);
 
 	protected:
 		void InstallService();

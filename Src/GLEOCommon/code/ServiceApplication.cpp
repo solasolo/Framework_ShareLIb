@@ -118,7 +118,7 @@ namespace GLEO
 		this->Logger = this->BuildLogger();
 	}
 
-	void ServiceModule::NotifyFunc(void* sender, wstring& msg, EventType type)
+	void ServiceModule::NotifyFunc(void* sender, const wstring& msg, EventType type)
 	{
 		if(this->Logger)
 		{
@@ -297,7 +297,7 @@ namespace GLEO
 		}
 	}
 
-	void ServiceApplication::NotifyFunc(void* sender, wstring& msg, EventType type)
+	void ServiceApplication::NotifyFunc(void* sender, const wstring& msg, EventType type)
 	{
 		this->winlog->Log(etMessage, msg);
 	}

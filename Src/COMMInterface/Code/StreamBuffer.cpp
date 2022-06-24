@@ -220,11 +220,23 @@ char StreamBuffer::ReadByte(unsigned int pos)
 	return Result;
 }
 
-int StreamBuffer::ReadInt(unsigned int pos)
+short StreamBuffer::ReadShort(unsigned int pos)
 {
 	short Result = 0;
+
+	if (!ReadData(&Result, pos, 2))
+	{
+		throw Exception("Execced Index", "Read Stream Byte");
+	}
+
+	return Result;
+}
+
+int StreamBuffer::ReadInt(unsigned int pos)
+{
+	int Result = 0;
 	
-	if(!ReadData(&Result, pos, 2))
+	if(!ReadData(&Result, pos, 4))
 	{
 		throw Exception("Execced Index", "Read Stream Byte");
 	}
@@ -232,7 +244,7 @@ int StreamBuffer::ReadInt(unsigned int pos)
 	return Result;
 }
 
-int StreamBuffer::FindData(char ch)
+int StreamBuffer::ScanData(char ch)
 {
 	int Result = -1;
 

@@ -1,50 +1,66 @@
 #include "SimpleProtocol.h"
 
+
+static const int CMD_SIZE = 2;
+static const int LEN_SIZE = 4;
+static const int HEAD_SIZE = CMD_SIZE + LEN_SIZE;
+
 //
 // class: SimpleProtocolDecoder
 //
 bool SimpleFrameCodec::Decode(StreamBuffer& stream, short& cmd, string& DataBlock)
 {
 	bool Result = false;
+	bool Remain = false;
 
-	int BufLen = stream.getSize();
-	while(stream.getSize() > 0 && stream.ReadByte(0) != STX)
+	do
 	{
-		stream.PickData(1);
-	}
-
-	if(BufLen >= 6)
-	{
-		if(stream.ReadByte(0) == STX)	// Meet Head
+		int pos = stream.ScanData(STX);
+		if (pos > 0)
 		{
- 			int TelLen = stream.ReadInt(1);
-			if(TelLen >= 4 && BufLen >= TelLen + 2)
+			stream.PickData(pos);
+		}
+		else if (pos < 0)
+		{
+			stream.Clear();
+		}
+
+		int BufLen = stream.getSize();
+		if (BufLen >= HEAD_SIZE + 2)
+		{
+			if (stream.ReadByte(0) == STX)	// Meet Head
 			{
-				if (stream.ReadByte(TelLen + 1) == ETX)
+				int TelLen = stream.ReadInt(1);
+				if (TelLen >= HEAD_SIZE && BufLen >= TelLen + 2)
 				{
-					cmd = (short)(stream.ReadInt(3)); // Read Command
+					if (stream.ReadByte(TelLen + 1) == ETX)
+					{
+						cmd = (short)(stream.ReadShort(LEN_SIZE + 1)); // Read Command
 
-					stream.PickData(5);		// 删除cmd及之前的字节 1 + 2 + 2
+						stream.PickData(HEAD_SIZE + 1);		// 删除cmd及之前的字节 1 + 2 + 2
 
-					if(TelLen > 4)
-					{ 
-						stream.PickData(DataBlock, TelLen - 4); // Read Data
+						if (TelLen > HEAD_SIZE)
+						{
+							stream.PickData(DataBlock, TelLen - HEAD_SIZE); // Read Data
+						}
+						else
+						{
+							DataBlock = "";
+						}
+
+						stream.PickData(1); // Remove ETX
+						Result = true;
 					}
 					else
 					{
-						DataBlock = "";
+						stream.PickData(1); // Remove STX
+						Remain = true;
 					}
-
-					stream.PickData(1); // Remove ETX
-					Result = true;
-				}
-				else
-				{
-					stream.PickData(1); // Remove STX
 				}
 			}
 		}
 	}
+	while (!Result && Remain);
 
 	return Result;
 }
@@ -52,12 +68,12 @@ bool SimpleFrameCodec::Decode(StreamBuffer& stream, short& cmd, string& DataBloc
 
 void SimpleFrameCodec::Encode(string& message, short cmd, string& DataBlock)
 {
-	int l = DataBlock.length() + 4;
-	
+	int l = DataBlock.length() + HEAD_SIZE;
+
 	message.clear();
 	message.append(&STX, 1);
-	message.append((char*)&l, 2);
-	message.append((char*)&cmd, 2);
+	message.append((char*)&l, LEN_SIZE);
+	message.append((char*)&cmd, CMD_SIZE);
 	message += DataBlock;
 	message.append(&ETX, 1);
 }
@@ -75,11 +91,11 @@ BinaryDecoder::BinaryDecoder(const string& buf)
 bool BinaryDecoder::RawRead(void* data, int length)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - length)
+
+	if (this->Pos <= this->Len - length)
 	{
 		const char* p = this->Buffer + this->Pos;
-	
+
 		memcpy(data, p, length);
 		this->Pos += length;
 
@@ -92,8 +108,8 @@ bool BinaryDecoder::RawRead(void* data, int length)
 bool BinaryDecoder::Read(char* data, int length)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 2)
+
+	if (this->Pos <= this->Len - 2)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -101,7 +117,7 @@ bool BinaryDecoder::Read(char* data, int length)
 		len = *((short*)p);
 		this->Pos += 2;
 
-		if(this->Pos <= this->Len - len)
+		if (this->Pos <= this->Len - len)
 		{
 			memcpy(data, p + 2, len);
 			data[len] = 0;
@@ -117,8 +133,8 @@ bool BinaryDecoder::Read(char* data, int length)
 bool BinaryDecoder::Read(string& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 2)
+
+	if (this->Pos <= this->Len - 2)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -126,7 +142,7 @@ bool BinaryDecoder::Read(string& data)
 		len = *((short*)p);
 		this->Pos += 2;
 
-		if(this->Pos <= this->Len - len)
+		if (this->Pos <= this->Len - len)
 		{
 			data.clear();
 			data.append(p + 2, len);
@@ -142,7 +158,7 @@ bool BinaryDecoder::Read(string& data)
 bool BinaryDecoder::Read(string& data, int length)
 {
 	bool Result = false;
-	if(this->Pos + length <= this->Len)
+	if (this->Pos + length <= this->Len)
 	{
 		const char* p = this->Buffer + this->Pos;
 		data.clear();
@@ -157,8 +173,8 @@ bool BinaryDecoder::Read(string& data, int length)
 bool BinaryDecoder::Read(int& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 4)
+
+	if (this->Pos <= this->Len - 4)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -174,8 +190,8 @@ bool BinaryDecoder::Read(int& data)
 bool BinaryDecoder::Read(short& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 2)
+
+	if (this->Pos <= this->Len - 2)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -191,8 +207,8 @@ bool BinaryDecoder::Read(short& data)
 bool BinaryDecoder::Read(float& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 4)
+
+	if (this->Pos <= this->Len - 4)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -208,8 +224,8 @@ bool BinaryDecoder::Read(float& data)
 bool BinaryDecoder::Read(char& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 1)
+
+	if (this->Pos <= this->Len - 1)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -225,13 +241,13 @@ bool BinaryDecoder::Read(char& data)
 bool BinaryDecoder::ReadReverse(int& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 4)
+
+	if (this->Pos <= this->Len - 4)
 	{
 		const char* p = this->Buffer + this->Pos;
-		
+
 		char* content = (char*)&data;
-		for(int i = 3; i >= 0; i--)
+		for (int i = 3; i >= 0; i--)
 		{
 			content[i] = *p;
 			p += 1;
@@ -248,13 +264,13 @@ bool BinaryDecoder::ReadReverse(int& data)
 bool BinaryDecoder::ReadReverse(short& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 2)
+
+	if (this->Pos <= this->Len - 2)
 	{
 		const char* p = this->Buffer + this->Pos;
-		
+
 		char* content = (char*)&data;
-		for(int i = 1; i >= 0; i--)
+		for (int i = 1; i >= 0; i--)
 		{
 			content[i] = *p;
 			p += 1;
@@ -271,13 +287,13 @@ bool BinaryDecoder::ReadReverse(short& data)
 bool BinaryDecoder::ReadReverse(float& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 4)
+
+	if (this->Pos <= this->Len - 4)
 	{
 		const char* p = this->Buffer + this->Pos;
-		
+
 		char* content = (char*)&data;
-		for(int i = 3; i >= 0; i--)
+		for (int i = 3; i >= 0; i--)
 		{
 			content[i] = *p;
 			p += 1;
@@ -294,8 +310,8 @@ bool BinaryDecoder::ReadReverse(float& data)
 bool BinaryDecoder::Read(wstring& data)
 {
 	bool Result = false;
-	
-	if(this->Pos <= this->Len - 2)
+
+	if (this->Pos <= this->Len - 2)
 	{
 		const char* p = this->Buffer + this->Pos;
 
@@ -303,10 +319,10 @@ bool BinaryDecoder::Read(wstring& data)
 		len = *((short*)p);
 		this->Pos += 2;
 
-		if(this->Pos <= this->Len - len)
+		if (this->Pos <= this->Len - len)
 		{
 			data.clear();
-			data.append( (wchar_t*)(p + 2), len);
+			data.append((wchar_t*)(p + 2), len);
 			this->Pos += len * 2;
 
 			Result = true;
@@ -337,7 +353,7 @@ void BinaryEncoder::Clean()
 
 void BinaryEncoder::AppendZero(string& Buffer, int count)
 {
-	for(int i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		Buffer.append("\x0", 1);
 	}
@@ -348,11 +364,11 @@ void BinaryEncoder::RawWrite(const void* data, int length)
 	Buffer.append((char*)data, length);
 }
 
-void BinaryEncoder::Write(const char* data, int length)
+void BinaryEncoder::WriteString(const char* data, int length)
 {
 	int actLen = strlen(data);
-	
-	if(actLen > length)
+
+	if (actLen > length)
 	{
 		actLen = length;
 	}
@@ -360,10 +376,16 @@ void BinaryEncoder::Write(const char* data, int length)
 	Buffer.append((char*)&actLen, 2);
 	Buffer.append(data, actLen);
 
-	if(actLen < length)
+	if (actLen < length)
 	{
-		AppendZero(Buffer,length - actLen);
+		AppendZero(Buffer, length - actLen);
 	}
+}
+
+void BinaryEncoder::WriteLongString(const char* data, int length)
+{
+	Buffer.append((char*)&length, 4);
+	Buffer.append(data, length);
 }
 
 void BinaryEncoder::Write(char data)
@@ -386,27 +408,50 @@ void BinaryEncoder::Write(float data)
 	Buffer.append((char*)&data, 4);
 }
 
-void BinaryEncoder::Write(const string& data)
+void BinaryEncoder::Write(const char* data, int len)
 {
-	int len = data.length();	// 字符串型数据在数据前增加2位长度
 	Buffer.append((char*)&len, 2);
-	Buffer.append(data.c_str(), len);
+	Buffer.append(data, len);
 }
 
-void BinaryEncoder::Write(const string& data,int length)
+void BinaryEncoder::Write(const string& data)
+{
+	this->Write(data.c_str(), data.length());
+}
+
+void BinaryEncoder::Write(const string& data, int length)
 {
 	int actLen = data.length();
-	
-	if(actLen > length)
+
+	if (actLen > length)
 	{
 		actLen = length;
 	}
 
 	Buffer.append(data.c_str(), actLen);
 
-	if(actLen < length)
+	if (actLen < length)
 	{
-		AppendZero(Buffer,length - actLen);
+		AppendZero(Buffer, length - actLen);
+	}
+}
+
+void BinaryEncoder::WritePLCString(const string& data, int length)
+{
+	int actLen = data.length();
+
+	if (actLen > length)
+	{
+		actLen = length;
+	}
+
+	Buffer.append((char*)&length, 1);
+	Buffer.append((char*)&actLen, 1);
+	Buffer.append(data.c_str(), actLen);
+
+	if (actLen < length)
+	{
+		AppendZero(Buffer, length - actLen);
 	}
 }
 
@@ -419,7 +464,7 @@ void BinaryEncoder::Write(const char* data)
 
 void BinaryEncoder::WriteReverse(int data)
 {
-	for(int i = 3; i >= 0; i--)
+	for (int i = 3; i >= 0; i--)
 	{
 		Buffer.append((char*)&data + i, 1);
 	}
@@ -427,7 +472,7 @@ void BinaryEncoder::WriteReverse(int data)
 
 void BinaryEncoder::WriteReverse(short data)
 {
-	for(int i = 1; i >= 0; i--)
+	for (int i = 1; i >= 0; i--)
 	{
 		Buffer.append((char*)&data + i, 1);
 	}
@@ -435,7 +480,7 @@ void BinaryEncoder::WriteReverse(short data)
 
 void BinaryEncoder::WriteReverse(float data)
 {
-	for(int i = 3; i >= 0; i--)
+	for (int i = 3; i >= 0; i--)
 	{
 		Buffer.append((char*)&data + i, 1);
 	}
@@ -528,7 +573,7 @@ SimpleProtocolEncoder::SimpleProtocolEncoder(short cmd)
 	this->FullFrame = true;
 
 	this->Write(BaseCmdCodec::STX);
-	this->Write((short)0);
+	this->Write((int)0);
 	this->Write(cmd);
 }
 
@@ -569,13 +614,12 @@ SimpleProtocolEncoder& SimpleProtocolEncoder::operator<< (char* data)
 
 string& SimpleProtocolEncoder::GetData()
 {
-	if(this->FullFrame)
+	if (this->FullFrame)
 	{
-		int l = Buffer.length() - 1;
-
 		this->Write(BaseCmdCodec::ETX);
-		Buffer[1] = *((char*)&l);
-		Buffer[2] = *((char*)&l + 1);
+
+		int l = Buffer.length() - 2;
+		*((int*)(Buffer.c_str() + 1)) = l;
 	}
 
 	return Buffer;

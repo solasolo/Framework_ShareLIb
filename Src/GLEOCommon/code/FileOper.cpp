@@ -7,23 +7,23 @@ namespace GLEO
 {
 	const FileException::ErrMap FileException::ErrorTable[] =
 	{
-		{E2BIG, _T("Argument list too long")}, 
-		{EACCES, _T("Permission denied")},
-		{EAGAIN, _T("No more processes or not enough memory or maximum nesting level reached")},
-		{EBADF, _T("Bad file number")},
-		{ECHILD, _T("No spawned processes")},
-		{EDEADLOCK, _T("Resource deadlock would occur")},
-		{EDOM, _T("Math argument")},
-		{EEXIST, _T("File exists")},
-		{EINVAL, _T("Invalid argument")},
-		{EMFILE, _T("Too many open files")},
-		{ENOENT, _T("No such file or directory")},
-		{ENOEXEC, _T("Exec format error")},
-		{ENOMEM, _T("Not enough memory")},
-		{ENOSPC, _T("No space left on device")},
-		{ERANGE, _T("Result too large")},
-		{EXDEV, _T("Cross-device link")},
-		{-1, _T("Unknow File Erroe")}
+		{E2BIG, L"Argument list too long"}, 
+		{EACCES, L"Permission denied"},
+		{EAGAIN, L"No more processes or not enough memory or maximum nesting level reached"},
+		{EBADF, L"Bad file number"},
+		{ECHILD, L"No spawned processes"},
+		{EDEADLOCK, L"Resource deadlock would occur"},
+		{EDOM, L"Math argument"},
+		{EEXIST, L"File exists"},
+		{EINVAL, L"Invalid argument"},
+		{EMFILE, L"Too many open files"},
+		{ENOENT, L"No such file or directory"},
+		{ENOEXEC, L"Exec format error"},
+		{ENOMEM, L"Not enough memory"},
+		{ENOSPC, L"No space left on device"},
+		{ERANGE, L"Result too large"},
+		{EXDEV, L"Cross-device link"},
+		{-1, L"Unknow File Erroe"}
 	};
 
 	void FileException::SetError()
@@ -55,7 +55,7 @@ namespace GLEO
 
 namespace GLEO
 {
-	TChar* FileOper::ModeStr[3] = {_T("r"), _T("w"), _T("w+")};
+	const wchar_t* FileOper::ModeStr[3] = {L"r", L"w", L"w+"};
 
 
 	FileOper::FileOper()

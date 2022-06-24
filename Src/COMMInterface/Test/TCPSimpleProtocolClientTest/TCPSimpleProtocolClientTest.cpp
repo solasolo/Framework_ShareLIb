@@ -15,7 +15,7 @@ class TestClinet : public TCPClientSimpleProtocol
 protected:
 	virtual void ProcessCommand(TCPConnection& conn, short cmd, BinaryDecoder& decoder);
 	virtual void ProcessConnect(TCPConnection& conn);
-	virtual void ProcessNotice(EventType type, wstring& msg);
+	virtual void ProcessNotice(EventType type, const wstring& msg);
 
 public:
 	TestClinet(string ip, int port);
@@ -43,7 +43,7 @@ void TestClinet::ProcessConnect(TCPConnection& conn)
 {
 }
 
-void TestClinet::ProcessNotice(EventType type, wstring& msg)
+void TestClinet::ProcessNotice(EventType type, const wstring& msg)
 {
 	wcout<<msg<<endl;
 }

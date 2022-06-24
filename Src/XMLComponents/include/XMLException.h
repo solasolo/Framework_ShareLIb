@@ -18,7 +18,7 @@ namespace Win32Lib
 	class _declspec(dllexport) XMLParseException : public GLEO::Exception
 	{
 	public:
-		XMLParseException(TString place, MSXML2::IXMLDOMDocumentPtr doc);	
+		XMLParseException(const wstring& place, MSXML2::IXMLDOMDocumentPtr doc);	
 	};
 }
 

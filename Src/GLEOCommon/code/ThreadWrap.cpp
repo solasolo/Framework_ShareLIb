@@ -147,7 +147,7 @@ namespace Win32Lib
 		return this->Quiting;
 	}
 
-	void SimpleThread::Notify(wstring& msg, EventType type)
+	void SimpleThread::Notify(const wstring& msg, EventType type)
 	{
 		DoCallBack(msg, type);
 	}

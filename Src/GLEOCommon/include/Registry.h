@@ -17,7 +17,7 @@ private:
 public:
 	Registry(HKEY key);
 
-	void OpenKey(wstring key);
+	void OpenKey(wstring key, bool readonly = true);
 	bool ValueExists(wstring key);
 	wstring ReadString(wstring key);
 	void WriteString(wstring key, wstring value);

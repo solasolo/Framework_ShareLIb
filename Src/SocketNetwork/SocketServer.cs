@@ -5,11 +5,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace GLEO.MES.Network
 {
-    class ServerConnection : BaseSocket
+    public class ServerConnection : BaseSocket
     {
         private SocketServer Server;
 
@@ -29,7 +28,7 @@ namespace GLEO.MES.Network
 
         protected override void DoReceivedData(MessageEnity msg)
         {
-            this.Server.DoReceivedData(msg);
+            this.Server.DoReceivedData(new SocketMessageEventArgs(this), msg);
         }
 
         protected override void ResetConnection()
@@ -119,13 +118,13 @@ namespace GLEO.MES.Network
             }
         }
 
-        internal void DoReceivedData(MessageEnity msg)
+        internal void DoReceivedData(SocketMessageEventArgs args, MessageEnity msg)
         {
             this.Buffer.SetMessage(msg);
 
             if (this.OnDataReceived != null)
             {
-                this.OnDataReceived(this, new SocketMessageEventArgs());
+                this.OnDataReceived(this, args);
             }
         }
 

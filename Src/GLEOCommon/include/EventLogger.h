@@ -13,9 +13,8 @@ using namespace Win32Lib;
 
 namespace GLEO
 {
-#if _MSC_VER < 1300
-	typedef long intptr_t;
-#endif
+	const int EVENT_LOGGER_BUFFER_SIZE = 1023;
+	static __declspec(thread) wchar_t EventLoggerBuffer[EVENT_LOGGER_BUFFER_SIZE + 1];
 
 	enum EventType
 	{
@@ -32,7 +31,7 @@ namespace GLEO
 	class IEventCallBack
 	{
 	public:
-		virtual void NotifyFunc(void* sender, wstring& msg, EventType type = etMessage) = 0;
+		virtual void NotifyFunc(void* sender, const wstring& msg, EventType type = etMessage) = 0;
 	};
 
 	class __declspec(dllexport) IEventSource
@@ -52,8 +51,10 @@ namespace GLEO
 		IEventCallBack* CallBackHandle;
 		bool ValidHandle();
 
-		void DoCallBack(wstring& msg, EventType type = etMessage);
-		void DoNotify(EventType type, wchar_t* fmt, ...);
+		void DoCallBack(const wstring& msg, EventType type = etMessage);
+
+		template<typename... Args>
+		void DoNotify(EventType type, const wchar_t* fmt, Args... args);
 
 	public:
 		EventSource();
@@ -90,7 +91,7 @@ namespace GLEO
 			int MT;
 		};
 
-		static wchar_t* EventTypeString[];
+		static wchar_t const* EventTypeString[];
 
 		CriticalSection Gate;
 
@@ -102,12 +103,14 @@ namespace GLEO
 		static wstring FormatDate(time_t t);
 		static wstring FormatDate(SYSTEMTIME& t);
 		static wstring FormatTime(SYSTEMTIME& t);
-		static wchar_t* getTypeString(EventType Type);
+		static const wchar_t* getTypeString(EventType Type);
 
 		virtual ~BaseEventLogger() {};
 
 		void Log(int Type);
-		void Log(int Type, wchar_t* fmt, ...);
+
+		template<typename... Args>
+		void Log(int Type, wchar_t* fmt, Args... args);
 
 		virtual void Log(int Type, string Message) throw();
 		virtual void Log(int Type, wstring Message) throw();
@@ -157,6 +160,30 @@ namespace GLEO
 
 		virtual void BatchLog(list<LogMessage>* msgs) throw();				
 	};
+
+
+	template<typename... Args>
+	void EventSource::DoNotify(EventType type, const wchar_t* fmt, Args... args)
+	{
+		wchar_t* buf = EventLoggerBuffer;
+		// wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
+
+		_snwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
+
+		this->DoCallBack(buf, type);
+	}
+
+
+	template<typename... Args>
+	void BaseEventLogger::Log(int Type, wchar_t* fmt, Args... args)
+	{
+		wchar_t* buf = EventLoggerBuffer;
+		// wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
+
+		_snwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
+
+		this->Log(Type, wstring(buf));
+	}
 }
 
 #endif

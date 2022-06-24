@@ -6,6 +6,7 @@
 #include <limits>
 
 #include "WinException.h"
+#include "CommonFuncs.h"
 
 //#define toString(x) #x
 

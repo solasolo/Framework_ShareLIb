@@ -1,9 +1,12 @@
 //---------------------------------------------------------------------------
 #pragma hdrstop
 
+#include "stdafx.h"
+
 #include "XMLConfig.h"
 #include "WinException.h"
 #include "XMLException.h"
+#include "CommonFuncs.h"
 
 using namespace Win32Lib;
 

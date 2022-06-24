@@ -43,9 +43,10 @@ public:
 	bool PickData(string& data, unsigned int len = 0);
 	bool PickData(unsigned int len);
 
-	int FindData(char ch);
+	int ScanData(char ch);
 
 	char ReadByte(unsigned int pos);
+	short ReadShort(unsigned int pos);
 	int ReadInt(unsigned int pos);
 };
 

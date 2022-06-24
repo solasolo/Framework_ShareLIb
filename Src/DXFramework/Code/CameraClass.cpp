@@ -2,6 +2,8 @@
 
 #include "CameraClass.h"
 
+#include <directxmath.h>
+
 using namespace DirectX;
 using namespace GLEO;
 

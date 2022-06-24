@@ -3,15 +3,16 @@
 #ifndef SMARTPOINTER_H
 #define SMARTPOINTER_H
 
-#include "BaseException.h"
+#include "WinException.h"
 
 #include <Unknwn.h>
 #include <atlbase.h>
 
 //#define COMPtr(intf) typedef CComPtr<intf> intf##Ptr 
 
-
 #define COMPtr(intf) typedef COMSmartPointer<intf> intf##Ptr 
+
+using namespace Win32Lib;
 
 namespace GLEO
 {
@@ -362,7 +363,7 @@ namespace GLEO
 		COMSmartPointer<P> Result;
 
 		HRESULT hr = (*this)->QueryInterface(id, (void**)&pIntf);
-		DXException::Check(hr, "Query Interface");		
+		WinException::COMCheck(hr, "Query Interface");
 
 		Result << pIntf;
 
@@ -439,8 +440,8 @@ namespace GLEO
 		{
 			this->_Release();
 
-			HRESULT hr = pi->QueryInterface(id, (void**)&pNew);
-			DXException::Check(hr, "Query Interface");		
+			HRESULT hr = pi->QueryInterface(ID, (void**)&pNew);
+			WinException::COMCheck(hr, "Query Interface");		
 
 			this->pInterface = pNew;
 		}

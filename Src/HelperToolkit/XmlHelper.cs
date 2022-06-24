@@ -91,13 +91,40 @@ namespace GLEO.Base
         {
             value = node.InnerText;
         }
-    
+
+        static public void GetText(XmlNode node, string path, ref string value)
+        {
+            XmlNode target = node.SelectSingleNode(path);
+            if (target != null) 
+            {
+                value = target.InnerText;
+            }
+        }
+
         static public void GetText(XmlNode node, ref int value)
         {
             string txt = node.InnerText;
             if (!String.IsNullOrEmpty(txt))
             {
                 value = Int32.Parse(txt);
+            }
+        }
+
+        static public void GetText(XmlNode node, string path, ref int value)
+        {
+            XmlNode target = node.SelectSingleNode(path);
+            if (target != null)
+            {
+                int.TryParse(target.InnerText, out value);
+            }
+        }
+
+        static public void GetText(XmlNode node, string path, ref double value)
+        {
+            XmlNode target = node.SelectSingleNode(path);
+            if (target != null)
+            {
+                double.TryParse(target.InnerText, out value);
             }
         }
     }

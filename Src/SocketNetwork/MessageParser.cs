@@ -47,18 +47,6 @@ namespace GLEO.MES.Network
             return ret;
         }
         
-        public int GetInt()
-        {
-            this.Check(4);
-
-            int ret;
-
-            ret = BitConverter.ToInt16(Data, pos);
-
-            pos += 4;
-
-            return ret;
-        }
 
         public int GetIntReverse()
         {
@@ -72,7 +60,7 @@ namespace GLEO.MES.Network
             return ret;
         }
 
-        public int GetLong()
+        public int GetInt()
         {
             this.Check(4);
 
@@ -122,10 +110,22 @@ namespace GLEO.MES.Network
             return ret;
         }
 
-        /// <summary>
-        /// 获得一个string
-        /// </summary>
-        /// <returns></returns>
+        public byte[] GetBytes()
+        {
+            byte[] ret;
+
+            int len = GetInt();
+
+            this.Check(len);
+
+            ret = new byte[len];
+            Array.Copy(Data, pos, ret, 0, len);
+
+            pos += len;
+
+            return ret;
+        }
+
         public string GetString()
         {
             string str = string.Empty;

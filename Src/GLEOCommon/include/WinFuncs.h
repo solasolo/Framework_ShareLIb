@@ -44,10 +44,10 @@ namespace Win32Lib
 
 		CLSID ClassID;
 
-		hr= CLSIDFromString((wchar_t*)name.c_str(), &CLSID_Server);
+		hr = CLSIDFromString((wchar_t*)name.c_str(), &ClassID);
 		WinException::COMCheck(hr, L"");
 
-		hr = CoCreateInstanceEx(CLSID_Server, NULL, CLSCTX_REMOTE_SERVER, &ServerInfo, 1, &qi);
+		hr = CoCreateInstanceEx(ClassID, NULL, CLSCTX_REMOTE_SERVER, &ServerInfo, 1, &qi);
 		WinException::COMCheck(hr, L"Create Remote COM Object");
 
 		return COMSmartPointer<T>(qi.pItf);

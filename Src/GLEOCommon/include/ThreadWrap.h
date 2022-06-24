@@ -52,7 +52,7 @@ namespace Win32Lib
 		virtual void Init()  {;};
 		virtual void Destory()  {;};
 		
-		virtual void Notify(wstring& msg, EventType type = etMessage);
+		virtual void Notify(const wstring& msg, EventType type = etMessage);
 		
 	public:
 		SimpleThread(wstring Name, bool suspend = false, IEventCallBack* callback = NULL);		

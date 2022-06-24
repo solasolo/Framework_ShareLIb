@@ -22,6 +22,7 @@ namespace GLEO
 
 	public:
 		static wstring GetAttributeString(MSXML2::IXMLDOMNodePtr node, wstring name);
+		static wstring ReadAttributeString(MSXML2::IXMLDOMNodePtr node, wstring name);
 		static int GetAttributeInt(MSXML2::IXMLDOMNodePtr node, wstring name);
 		static double GetAttributeFloat(MSXML2::IXMLDOMNodePtr node, wstring name);
 
