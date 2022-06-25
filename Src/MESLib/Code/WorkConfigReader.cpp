@@ -1,4 +1,5 @@
 #include "WorkConfigReader.h"
+#include "CommonFuncs.h"
 
 WorkConfigReader::WorkConfigReader(void)
 {

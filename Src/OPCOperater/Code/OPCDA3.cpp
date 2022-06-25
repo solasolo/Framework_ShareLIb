@@ -9,6 +9,7 @@
 
 #include "OPCDA3.h"
 #include "OPCException.h"
+#include "CommonFuncs.h"
 
 //
 // interface IOPCServer wrapper method implementations

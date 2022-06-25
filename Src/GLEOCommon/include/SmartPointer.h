@@ -4,6 +4,7 @@
 #define SMARTPOINTER_H
 
 #include "WinException.h"
+#include "CommonFuncs.h"
 
 #include <Unknwn.h>
 #include <atlbase.h>
