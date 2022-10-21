@@ -29,7 +29,7 @@ void HMIChannel::ProcessConnect(TCPConnection& conn)
 {
 }
 
-void HMIChannel::ProcessNotice(EventType type, wstring& msg)
+void HMIChannel::ProcessNotice(EventType type, const wstring& msg)
 {
 	this->Logger->Log(etMessage, msg);
 }

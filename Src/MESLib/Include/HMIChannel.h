@@ -19,7 +19,7 @@ protected:
 
 	virtual void ProcessCommand(TCPConnection& conn, short cmd, BinaryDecoder& decoder);
 	virtual void ProcessConnect(TCPConnection& conn);
-	virtual void ProcessNotice(EventType type, wstring& msg);
+	virtual void ProcessNotice(EventType type, const wstring& msg);
 
 public:
 	HMIChannel(string ip, int port, BaseEventLogger* log);

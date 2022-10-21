@@ -168,7 +168,7 @@ namespace GLEO
 		wchar_t* buf = EventLoggerBuffer;
 		// wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
 
-		_snwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
+		_snwprintf_s(buf, EVENT_LOGGER_BUFFER_SIZE, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
 
 		this->DoCallBack(buf, type);
 	}
@@ -180,7 +180,7 @@ namespace GLEO
 		wchar_t* buf = EventLoggerBuffer;
 		// wchar_t buf[EVENT_LOGGER_BUFFER_SIZE + 1];
 
-		_snwprintf(buf, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
+		_snwprintf_s(buf, EVENT_LOGGER_BUFFER_SIZE, EVENT_LOGGER_BUFFER_SIZE, fmt, args...);
 
 		this->Log(Type, wstring(buf));
 	}

@@ -352,7 +352,7 @@ void BaseXCOM::SetCallBack(XCOMCallBack* callback)
 	this->CallBackHandle = callback;
 }
 
-void BaseXCOM::SendNotify(wstring& msg, EventType type)
+void BaseXCOM::SendNotify(const wstring& msg, EventType type)
 {
 	try
 	{
@@ -551,7 +551,7 @@ void BaseXCOM::OnConnected(TCPConnection& conn)
 	this->ResetHeartbeat();
 }
 
-void BaseXCOM::NotifyFunc(void* sender, wstring& msg, EventType type)
+void BaseXCOM::NotifyFunc(void* sender, const wstring& msg, EventType type)
 {
 	this->SendNotify(msg, type);
 }

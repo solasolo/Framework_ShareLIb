@@ -79,7 +79,7 @@ private:
 	void SendACK(TCPConnection& conn, string& telegram);
 	bool WaitACK();
 
-	void SendNotify(wstring& msg, EventType type = etMessage);
+	void SendNotify(const wstring& msg, EventType type = etMessage);
 	void MessageLog(char* fmt, ...);
 
 protected:
@@ -116,7 +116,7 @@ protected:
 
 	virtual void OnReceived(TCPConnection& conn);
 	virtual void OnConnected(TCPConnection& conn);
-	virtual void NotifyFunc(void* sender, wstring& msg, EventType type);
+	virtual void NotifyFunc(void* sender, const wstring& msg, EventType type);
 
 public:
 	BaseXCOM(wstring name);
