@@ -12,7 +12,7 @@ bool operator < (GUID const& lhs, GUID const& rhs)
 
 namespace GLEO
 {
-	bool IsEmpty(variant_t& var)
+	bool IsEmpty(const variant_t& var)
 	{
 		VARIANT Value;
 
@@ -26,7 +26,7 @@ namespace GLEO
 		return Value.vt == VT_EMPTY;
 	}
 
-	bool IsNull(variant_t& var)
+	bool IsNull(const variant_t& var)
 	{
 		VARIANT Value;
 
@@ -40,7 +40,7 @@ namespace GLEO
 		return Value.vt == VT_NULL;
 	}
 
-	long ToLong(variant_t& var)
+	long ToLong(const variant_t& var)
 	{
 		long Result = 0;
 
@@ -49,7 +49,7 @@ namespace GLEO
 		return Result;
 	}
 
-	double ToFloat(variant_t& var)
+	double ToFloat(const variant_t& var)
 	{
 		double Result = 0.0;
 
@@ -59,7 +59,7 @@ namespace GLEO
 		return Result;
 	}
 
-	string ToString(variant_t& var)
+	string ToString(const variant_t& var)
 	{
 		string Result = "";
 
@@ -69,7 +69,7 @@ namespace GLEO
 		return Result;
 	}
 
-	wstring ToWString(variant_t& var)
+	wstring ToWString(const variant_t& var)
 	{
 		wstring Result = L"";
 
@@ -79,7 +79,7 @@ namespace GLEO
 		return Result;
 	}
 
-	time_t ToTime(variant_t& var)
+	time_t ToTime(const variant_t& var)
 	{
 		time_t Result;
 		double fd = ToFloat(var);

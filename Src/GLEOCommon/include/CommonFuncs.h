@@ -42,14 +42,14 @@ namespace GLEO
 	__declspec(dllexport) void ToLower(string &str);
 	__declspec(dllexport) void ToUpper(string &str);
 
-	__declspec(dllexport) bool IsEmpty(variant_t& var);
-	__declspec(dllexport) bool IsNull(variant_t& var);
+	__declspec(dllexport) bool IsEmpty(const variant_t& var);
+	__declspec(dllexport) bool IsNull(const variant_t& var);
 
-	__declspec(dllexport) long ToLong(variant_t& var);
-	__declspec(dllexport) double ToFloat(variant_t& var);
-	__declspec(dllexport) string ToString(variant_t& var);
-	__declspec(dllexport) wstring ToWString(variant_t& var);
-	__declspec(dllexport) time_t ToTime(variant_t& var);
+	__declspec(dllexport) long ToLong(const variant_t& var);
+	__declspec(dllexport) double ToFloat(const variant_t& var);
+	__declspec(dllexport) string ToString(const variant_t& var);
+	__declspec(dllexport) wstring ToWString(const variant_t& var);
+	__declspec(dllexport) time_t ToTime(const variant_t& var);
 	__declspec(dllexport) variant_t FromTime(time_t t);
 
 	__declspec(dllexport) string ToNarrowString(const wstring& str);
